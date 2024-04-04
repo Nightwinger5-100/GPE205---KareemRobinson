@@ -27,6 +27,7 @@ public class TankMover : Mover
     {
         //multiply the rotate speed by the deltaTime(frameBased to timeBased)
         //then take that number and rotate the tank that value
+        Debug.Log("hello");
         float rotateVector = rotateSpeed * Time.deltaTime;
         rb.transform.Rotate(0,rotateVector,0);
     }
