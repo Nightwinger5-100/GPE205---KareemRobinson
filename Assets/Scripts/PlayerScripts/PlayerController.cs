@@ -28,22 +28,18 @@ public KeyCode rotateCounterClockwiseKey;
     {
         if (Input.GetKey(moveForwardKey))
         { 
-            Debug.Log("pressed W");
             pawn.MoveForward();
         }
         if (Input.GetKey(moveBackwardKey))
         { 
-            Debug.Log("pressed s");
             pawn.MoveBackward();
         }
         if (Input.GetKey(rotateClockwiseKey))
         { 
-            Debug.Log("pressed d");
             pawn.RotateClockwise();
         }
         if (Input.GetKey(rotateCounterClockwiseKey))
         { 
-            //Debug.Log("pressed a");
             pawn.RotateCounterClockwise();
         }
     }
