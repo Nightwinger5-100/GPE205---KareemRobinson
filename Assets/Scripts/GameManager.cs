@@ -36,7 +36,14 @@ public class GameManager : MonoBehaviour
         newController.pawn = newPawn;
     }
     
-     
+     public void SpawnEnemy()
+    {
+        // Spawn the enemy actor and connect it to the controller
+         GameObject newPawnObj = Instantiate(tankMimicPrefab, enemySpawnTransform.position, enemySpawnTransform.rotation) as GameObject;
+
+        // Get enemy components
+        Pawn newPawn = newPawnObj.GetComponent<Pawn>();
+    }
 
     // As soon as this is created before even start()
     private void Awake()
