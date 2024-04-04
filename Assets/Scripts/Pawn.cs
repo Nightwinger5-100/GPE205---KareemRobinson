@@ -6,15 +6,18 @@ public abstract class Pawn : MonoBehaviour
 {
 
     //Movement and Turn Speed variables
+
     public float moveSpeed;
 
     public float turnSpeed;
 
+    //the object to move
     public Mover mover;
 
     // Start is called before the first frame update
     public virtual void Start()
     {
+        //connect mover to pawn
         mover = GetComponent<Mover>();
     }
 
@@ -24,7 +27,7 @@ public abstract class Pawn : MonoBehaviour
 
     }
 
-
+//the movement and rotation that'll be defined in the child(ren)
 public abstract void MoveForward();
 public abstract void MoveBackward();
 public abstract void RotateClockwise();

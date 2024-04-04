@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Controller : MonoBehaviour
 {
 
+//the object that will be the pawn
 public Pawn pawn;
 
     // Start is called before the first frame update
@@ -19,7 +20,7 @@ public Pawn pawn;
         
     }
 
-    //Input that'll be overrided by the child classes
+    //Input that'll be overridden by the child classes
     public abstract void ProcessInputs();
 
 }
