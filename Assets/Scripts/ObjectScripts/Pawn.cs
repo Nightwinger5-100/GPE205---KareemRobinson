@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public abstract class Pawn : MonoBehaviour
 {
 
@@ -14,9 +16,13 @@ public abstract class Pawn : MonoBehaviour
     //the object to move
     public Mover mover;
 
+    //how fast the pawn can shoot
+    public float fireRate;
+    
     // Start is called before the first frame update
     public virtual void Start()
     {
+        fireRate = 1 / fireRate;
         //connect mover to pawn
         mover = GetComponent<Mover>();
     }
@@ -33,5 +39,5 @@ public abstract void MoveBackward();
 public abstract void RotateClockwise();
 public abstract void RotateCounterClockwise();
 
-
+public abstract void shoot();
 }

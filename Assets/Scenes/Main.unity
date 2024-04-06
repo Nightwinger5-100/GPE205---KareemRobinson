@@ -403,6 +403,7 @@ MonoBehaviour:
   tankMimicPrefab: {fileID: 9148073581426632998, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
   playerSpawnTransform: {fileID: 1683698407}
   enemySpawnTransform: {fileID: 1946566834}
+  players: []
 --- !u!65 &1141708383
 BoxCollider:
   m_ObjectHideFlags: 0

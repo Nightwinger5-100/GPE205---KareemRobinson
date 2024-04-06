@@ -123,3 +123,4 @@ MonoBehaviour:
   moveBackwardKey: 274
   rotateClockwiseKey: 275
   rotateCounterClockwiseKey: 276
+  shootKey: 323

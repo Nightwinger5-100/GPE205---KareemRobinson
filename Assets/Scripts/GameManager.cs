@@ -15,10 +15,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject tankMimicPrefab;
     
-    //Spawnpoint
+    //Spawnpoints
     public Transform playerSpawnTransform;
 
     public Transform enemySpawnTransform;
+    
+    //player list
+    public List<PlayerController> players;
 
     public void SpawnPlayer()
     {

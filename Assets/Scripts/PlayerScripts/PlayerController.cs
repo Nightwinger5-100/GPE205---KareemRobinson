@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 public class PlayerController : Controller
@@ -11,13 +12,41 @@ public KeyCode rotateClockwiseKey;
 
 public KeyCode rotateCounterClockwiseKey;
 
+//shoot projectile key
+public KeyCode shootKey;
+
     // Start is called before the first frame update
     public override void Start()
     {
-        //get the parent start()
-        base.Start();
+        //if the gameManager exists
+       if(GameManager.instance != null) 
+       {
+        //if the list "players" exists
+        if(GameManager.instance.players != null) 
+        {
+            //add this player to the list
+            GameManager.instance.players.Add(this);
+        }
+       }
+    //run Start() from the parent class
+    base.Start();
     }
 
+    //remove the player from the gameManage list if they died
+    public void Destroy()
+    {
+        //if the gameManager exists
+       if(GameManager.instance != null) 
+       {
+        //if the list "players" exists
+        if(GameManager.instance.players != null) 
+        {
+            //remove this player from the list
+            GameManager.instance.players.Remove(this);
+        }
+       }
+    }
+    
     // Update is called once per frame so it will check if the key is down every frame
     public override void Update()
     {
@@ -49,5 +78,10 @@ public KeyCode rotateCounterClockwiseKey;
         { 
             pawn.RotateCounterClockwise();
         }
+        if (Input.GetKey(shootKey))
+        {
+            pawn.shoot();
+        }
     }
+
 }
