@@ -111,6 +111,7 @@ MonoBehaviour:
   turnSpeed: 100
   mover: {fileID: 5757884812751048001}
   fireRate: 10
+  sprintSpeedIncrease: 2
 --- !u!114 &5757884812751048001
 MonoBehaviour:
   m_ObjectHideFlags: 0

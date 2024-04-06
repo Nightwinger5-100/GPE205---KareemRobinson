@@ -124,3 +124,5 @@ MonoBehaviour:
   rotateClockwiseKey: 275
   rotateCounterClockwiseKey: 276
   shootKey: 323
+  sprintKey: 304
+  isSprintingBool: 0

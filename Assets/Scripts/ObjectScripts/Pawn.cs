@@ -19,12 +19,16 @@ public abstract class Pawn : MonoBehaviour
     //how fast the pawn can shoot
     public float fireRate;
     
+    //the number the moveSpeed is multiplied by when sprinting
+    public float sprintSpeedIncrease;
+
     // Start is called before the first frame update
     public virtual void Start()
     {
         fireRate = 1 / fireRate;
         //connect mover to pawn
         mover = GetComponent<Mover>();
+        
     }
 
     // Update is called once per frame
@@ -34,10 +38,15 @@ public abstract class Pawn : MonoBehaviour
     }
 
 //the movement and rotation that'll be defined in the child(ren)
-public abstract void MoveForward();
-public abstract void MoveBackward();
-public abstract void RotateClockwise();
-public abstract void RotateCounterClockwise();
+public abstract void MoveForward(bool sprintBool);
+public abstract void MoveBackward(bool sprintBool);
+public abstract void RotateClockwise(bool sprintBool);
+public abstract void RotateCounterClockwise(bool sprintBool);
 
-public abstract void shoot();
+public abstract void Shoot();
+
+public virtual void IsPawnSprinting()
+{
+    
+}
 }

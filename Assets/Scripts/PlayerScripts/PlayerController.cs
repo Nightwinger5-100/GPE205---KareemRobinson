@@ -5,15 +5,21 @@ using UnityEngine;
 
 public class PlayerController : Controller
 {
-//movement and rotation keys
-public KeyCode moveForwardKey;
-public KeyCode moveBackwardKey;
-public KeyCode rotateClockwiseKey;
+    //movement and rotation keys
+    public KeyCode moveForwardKey;
+    public KeyCode moveBackwardKey;
+    public KeyCode rotateClockwiseKey;
 
-public KeyCode rotateCounterClockwiseKey;
+    public KeyCode rotateCounterClockwiseKey;
 
-//shoot projectile key
-public KeyCode shootKey;
+    //shoot projectile key
+    public KeyCode shootKey;
+
+    //sprint key
+    public KeyCode sprintKey;
+
+    //isSprintingBool
+    public bool isSprintingBool;
 
     // Start is called before the first frame update
     public override void Start()
@@ -61,27 +67,41 @@ public KeyCode shootKey;
     //if they're down then run the function for that action
     public override void ProcessInputs()
     {
-
         if (Input.GetKey(moveForwardKey))
         { 
-            pawn.MoveForward();
+            sprintCheck();
+            pawn.MoveForward(isSprintingBool);
         }
         if (Input.GetKey(moveBackwardKey))
         { 
-            pawn.MoveBackward();
+            sprintCheck();
+            pawn.MoveForward(isSprintingBool);
         }
         if (Input.GetKey(rotateClockwiseKey))
         { 
-            pawn.RotateClockwise();
+            sprintCheck();
+            pawn.RotateClockwise(isSprintingBool);
         }
         if (Input.GetKey(rotateCounterClockwiseKey))
         { 
-            pawn.RotateCounterClockwise();
+            sprintCheck();
+            pawn.RotateCounterClockwise(isSprintingBool);
         }
         if (Input.GetKey(shootKey))
         {
-            pawn.shoot();
+            pawn.Shoot();
         }
     }
 
+    public void sprintCheck()
+    {
+        if (Input.GetKey(sprintKey))
+        {
+            isSprintingBool = true;
+        }
+        else
+        {
+            isSprintingBool = false;
+        }
+    }
 }
