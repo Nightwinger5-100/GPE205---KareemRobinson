@@ -13,7 +13,7 @@ public class TankPawn : Pawn
     public override void Start()
     {   
 
-        nextTimeCanShoot = Time.time + fireRate;
+        nextTimeCanShoot = Time.time;
         //get the parent Pawn start()
         base.Start();
     }
@@ -83,11 +83,13 @@ public class TankPawn : Pawn
     //check if shoot is on cd, if it's not then shoot and put it on cd
     public override void Shoot()
     {
+
         //if the time thats passed is greater than the next time they can shoot
         if (Time.time >= nextTimeCanShoot) 
         {
             //shoot and reset the shoot cooldown
-            Debug.Log("Shoot");
+           
+            shooter.Shoot(bulletPrefab, fireForce, damageDone, lifeTime);
             nextTimeCanShoot = Time.time + fireRate;
         }
         else

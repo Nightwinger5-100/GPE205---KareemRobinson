@@ -75,7 +75,7 @@ public class PlayerController : Controller
         if (Input.GetKey(moveBackwardKey))
         { 
             sprintCheck();
-            pawn.MoveForward(isSprintingBool);
+            pawn.MoveBackward(isSprintingBool);
         }
         if (Input.GetKey(rotateClockwiseKey))
         { 
