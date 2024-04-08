@@ -36,7 +36,6 @@ public class TankShooter : Shooter
 
         // Get the rigidbody 
         Rigidbody rb = newBullet.GetComponent<Rigidbody>();
-        Debug.Log(rb);
         // If it has one
         if (rb != null) 
         {

@@ -123,25 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &606959251 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9148073581426632998, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
-  m_PrefabInstance: {fileID: 911981111}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &606959259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 606959251}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18aea979fe78d3d4f9caca353e3d0d4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentHealth: 0
-  maxHealth: 30
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,66 +217,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 79.84, y: -97.649, z: -80.633}
---- !u!1001 &911981111
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.772396
-      objectReference: {fileID: 0}
-    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -22.663784
-      objectReference: {fileID: 0}
-    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 14.560431
-      objectReference: {fileID: 0}
-    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9148073581426632998, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
-      propertyPath: m_Name
-      value: EvilUATank
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9148073581426632998, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 606959259}
-  m_SourcePrefab: {fileID: 100100000, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,6 +748,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 89.832, z: 90}
+--- !u!1001 &1533764199
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9.511613
+      objectReference: {fileID: 0}
+    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -22.691315
+      objectReference: {fileID: 0}
+    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 14.506239
+      objectReference: {fileID: 0}
+    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9148073581426632998, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: m_Name
+      value: EvilUATank (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
 --- !u!4 &1683698407 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5774378064019383189, guid: 9a056e2e540bbe841922480b1834a0c2, type: 3}
@@ -1006,4 +984,4 @@ SceneRoots:
   - {fileID: 1408569836}
   - {fileID: 1141708386}
   - {fileID: 6481129336083350283}
-  - {fileID: 911981111}
+  - {fileID: 1533764199}

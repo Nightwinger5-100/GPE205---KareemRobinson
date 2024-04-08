@@ -232,8 +232,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mover: {fileID: 5757884812751048001}
   moveSpeed: 7
-  turnSpeed: 100
-  fireRate: 10
+  turnSpeed: 200
+  fireRate: 5
   sprintSpeedIncrease: 2
   shooter: {fileID: 0}
   bulletPrefab: {fileID: 4201985538476627280, guid: 864fb3ec2cdb81e498f4dd9a25efe43c, type: 3}

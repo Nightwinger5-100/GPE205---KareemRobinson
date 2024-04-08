@@ -58,8 +58,6 @@ public abstract void MoveBackward(bool sprintBool);
 public abstract void RotateClockwise(bool sprintBool);
 public abstract void RotateCounterClockwise(bool sprintBool);
 public abstract void Shoot();
-public virtual void IsPawnSprinting()
-{
-    
-}
+
+public abstract void RotateTowards(Vector3 targetPosition);
 }

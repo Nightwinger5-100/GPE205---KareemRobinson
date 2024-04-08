@@ -98,13 +98,16 @@ public class TankPawn : Pawn
         }
     }
 
-
-    public void pawnSprint()
+    public override void RotateTowards(Vector3 targetPosition)
     {
+        //find the difference between the two vector3s of the target and pawn
+        Vector3 vectorToTarget = targetPosition - transform.position;
 
+        //the vector to look at based on given the up direction
+        Quaternion targetRotation = Quaternion.LookRotation(vectorToTarget, Vector3.up);
+
+        //rotate the object over time based on however fast their turnSpeed is, toward the target rotation
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
     }
-    public override void IsPawnSprinting()
-    {
-        
-    }
+
 }

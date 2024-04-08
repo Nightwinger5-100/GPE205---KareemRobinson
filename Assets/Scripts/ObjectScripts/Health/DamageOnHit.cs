@@ -14,7 +14,6 @@ public class DamageOnHit : MonoBehaviour
         //Only damage if it has a Health Component
         if (otherHealth != null)
         {   
-            print(owner);
             //Do damage
             otherHealth.TakeDamage(damageDone, owner);
         }

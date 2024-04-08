@@ -21,6 +21,9 @@ public Pawn pawn;
     }
 
     //Input that'll be overridden by the child classes
-    public abstract void ProcessInputs();
+    public virtual void ProcessInputs()
+    {
+        
+    }
 
 }
