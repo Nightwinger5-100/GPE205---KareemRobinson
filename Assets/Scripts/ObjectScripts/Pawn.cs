@@ -52,12 +52,17 @@ public abstract class Pawn : MonoBehaviour
 
     }
 
-//the movement and rotation that'll be defined in the child(ren)
-public abstract void MoveForward(bool sprintBool);
-public abstract void MoveBackward(bool sprintBool);
-public abstract void RotateClockwise(bool sprintBool);
-public abstract void RotateCounterClockwise(bool sprintBool);
-public abstract void Shoot();
+    //the movement and rotation that'll be defined in the child(ren)
+    public abstract void MoveForward(bool sprintBool);
+    public abstract void MoveBackward(bool sprintBool);
+    public abstract void RotateClockwise(bool sprintBool);
+    public abstract void RotateCounterClockwise(bool sprintBool);
 
-public abstract void RotateTowards(Vector3 targetPosition);
+    //the shoot functions that'll be defined in the child(ren)
+    public abstract void Shoot();
+
+    //making the pawn face a position that'll be defined in the child(ren)
+    public abstract void RotateTowards(Vector3 targetPosition);
+
+    
 }
