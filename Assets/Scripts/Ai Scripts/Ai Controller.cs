@@ -29,6 +29,18 @@ public class AiController : Controller
     //the bool for if the ai is sprinting
     public bool sprintBool;
 
+    //if the ai will restart their patrol upon reaching the end
+    public bool resetPatrolBool;
+
+    //an array of places to patrol between
+    public Transform[] waypoints;
+
+    //the distance to travel before halting within a patrol
+    public float waypointStopDistance;
+
+    //the current waypoint to patrol
+    private int currentWaypoint = 0;
+
     // Start is called before the first frame update
     public override void Start()
     {
@@ -52,6 +64,23 @@ public class AiController : Controller
         // Save the time when we changed states
         lastStateChangeTime = Time.time;
 
+    }
+
+    public void targetPlayerOne()
+    {   
+        //if the gameManager exists
+        if (GameManager.instance != null)
+        {   //if the player list exists
+            if (GameManager.instance.players != null)
+            {   
+                //if there's at least 1 player
+                if (GameManager.instance.players.Count > 0)
+                {
+                    //find the first instance of the player and make that the target
+                    target = GameManager.instance.players[0].pawn.gameObject;
+                }
+            }
+        }
     }
 
     public void MakeDecisions()
@@ -107,6 +136,27 @@ public class AiController : Controller
         pawn.Shoot();
     }
     
+    protected void Patrol()
+    {   
+        //if the current waypoint is less than the final instance in the waypoint array
+        if (waypoints.Length > currentWaypoint)
+        {   
+            //find the index of waypoint thats equal to the currentWaypoint
+            Seek(waypoints[currentWaypoint]);
+            //if close enough move onto the next way point
+            if (Vector3.Distance(pawn.transform.position, waypoints[currentWaypoint].position) < waypointStopDistance)
+            {
+                currentWaypoint++;
+            }
+            //otherwise restart the patrol num
+        }  
+        //if we reached the end and want to reset the patrol
+        else if (resetPatrolBool)   
+        {
+            RestartPatrol();
+        }
+    }
+
       protected void Flee()
     {
         //find the difference between the two vector3s of the target and pawn
@@ -161,4 +211,16 @@ public class AiController : Controller
         // Move Forward
         pawn.MoveForward(sprintBool);
     }
+    protected void RestartPatrol()
+    {
+        //set the current waypoint to 0
+        currentWaypoint = 0;
+    }
+
+    protected bool IfHasTarget()
+    {
+        //return true if we have a target and false otherwise
+        return (target != null);
+    }
 }
+
