@@ -10,6 +10,21 @@ public class AiController : Controller
 
     //the possible states the ai can be in
     public enum AiState {Guard, Chase, Flee, Patrol, Attack, Scan, BackToPost, Idle};
+    
+    public bool canGuard;
+
+    public bool canChase;
+
+    public bool canFlee;
+
+    public bool canPatrol;
+    
+    public bool canAttack;
+
+    public bool canScan;
+
+    public bool canBackToPost;
+
 
     //the current state the ai is in
     public AiState currentState;
@@ -21,10 +36,19 @@ public class AiController : Controller
     public GameObject target;
 
     //the distance for acknowleding the target
-    public float distance;
+    public float chaseDistance;
+
+    //stores the original chaseDistance
+    private float defaultChaseDistance;
 
     //the distance for running away
     public float fleeDistance;
+
+    //stores the original fleeDistance
+    private float defaultFleeDistance;
+
+    //increase the distance by this amount for distance variables to make it less stiff
+    public float distanceMultiplier;
 
     //the bool for if the ai is sprinting
     public bool sprintBool;
@@ -40,32 +64,42 @@ public class AiController : Controller
 
     //the current waypoint to patrol
     private int currentWaypoint = 0;
-
-    // Start is called before the first frame update
+    
+    //Adds target if necessary
     public override void Start()
     {
+        //if there's currently no target make the first player the target
+        if (AiHasTarget())
+        {
+           targetPlayerOne(); 
+        }
+
+        //store the original values of the distances
+        defaultChaseDistance = chaseDistance;
+        defaultFleeDistance = fleeDistance;
+
         //run the parent start()
         base.Start();
     }
 
-    // Update is called once per frame
+    //Check if there's a target before running makeDecisions
     public override void Update()
     {
+        //if there's a target...
+        if (AiHasTarget())
+        {
         //run makeDecisions
-        MakeDecisions();
+        MakeDecisions();    
+        }
+        else
+        {
+        targetPlayerOne();    
+        }
         //run parent update()
         base.Update();
     }
 
-    public virtual void ChangeState (AiState newState)
-    {
-        // Change the current state
-        currentState = newState;
-        // Save the time when we changed states
-        lastStateChangeTime = Time.time;
-
-    }
-
+    //set the first player as the target
     public void targetPlayerOne()
     {   
         //if the gameManager exists
@@ -83,43 +117,112 @@ public class AiController : Controller
         }
     }
 
+    //locate the closest tank out of all the tanks, then make that the target
+    protected void FindNearestTank()
+    {
+        //get the list of  all the tanks
+        Pawn[] allTanks = FindObjectsOfType<Pawn>();
+
+        //make the first tank the closest
+        Pawn closestTank = allTanks[0];
+
+        //make the first tank the current closest distance
+        float closestTankDistance = Vector3.Distance(pawn.transform.position, closestTank.transform.position);
+
+        //loop through each instance in the tank list
+        foreach(Pawn tank in allTanks)
+        {
+            //check if the current tank distance is closer than the current closestTankDistance
+            if (Vector3.Distance(pawn.transform.position, tank.transform.position) < closestTankDistance)
+            {
+                //if the tank is the closer make it the new closest tank
+                closestTank = tank;
+                //and make it's distance the new closest
+                closestTankDistance = Vector3.Distance(pawn.transform.position, tank.transform.position);;
+            }
+        }
+        //make the closest tank the target
+        target = closestTank.gameObject;
+    }
+
+    //How do i reference all the players in the game?
+    
+    //the states the ai will switch between at any given time
+    
+    //
     public void MakeDecisions()
     {
-        switch (currentState) {
+        switch (currentState) 
+        {
+            //check if if needs to switch states and if those states are enabled!
             case AiState.Idle:
                 DoIdleState();
-                if (IsDistanceLessThan(target, distance))
+                
+                //check if they're within the distance to start the state
+                if (IsDistanceLessThan(target, chaseDistance))
                 {
-                   ChangeState(AiState.Chase); 
+                    if (canChase)
+                    {
+                    //store the normal chase distance and start chase state;
+                    chaseDistance *= distanceMultiplier;
+                    ChangeState(AiState.Chase); 
+                    }
+                }
+                if (IsDistanceLessThan(target, fleeDistance))
+                {
+                    if (canFlee)
+                    {
+                    //store the normal flee distance and start flee state;
+                    fleeDistance *= distanceMultiplier;
+                    ChangeState(AiState.Flee); 
+                    }
                 }
                 break;
+
+            //check if they're in chase distance still
             case AiState.Chase:
                 DoChaseState();
-                if (!IsDistanceLessThan(target, distance))
+                if (!IsDistanceLessThan(target, chaseDistance))
                 {
-                   ChangeState(AiState.Idle); 
+                    //reset chaseDistance and stance
+                    chaseDistance = defaultChaseDistance; 
+                    ChangeState(AiState.Idle); 
                 }
                 break;
+
+            //check if they're in flee distance still
             case AiState.Flee:
-                if (!IsDistanceLessThan(target, distance))
+                 Flee();
+                if (!IsDistanceLessThan(target, fleeDistance))
                 {
-                   ChangeState(AiState.Idle); 
+                    //reset fleeDistance and stance
+                    fleeDistance = defaultFleeDistance;
+                    ChangeState(AiState.Idle); 
                 }
                 break;
             
         }
     }
 
+    //stores the previous state and updates the current state
+    public virtual void ChangeState (AiState newState)
+    {
+        // Change the current state
+        currentState = newState;
+        // Save the time when we changed states
+        lastStateChangeTime = Time.time;
+
+    }
+
+    //check the distance between the target and the ai
     protected bool IsDistanceLessThan(GameObject target, float distance)
     {
         if(Vector3.Distance (pawn.transform.position, target.transform.position) < distance)
         {
             return true;
         }
-        //HEY IF ITS NOT WORKING ADD AN ELSE STATEMENT HERE
         return false;
     }
-
 
     //do nothing 
     protected void DoIdleState()
@@ -132,10 +235,23 @@ public class AiController : Controller
     {
         //move toward and face the target
         Seek(target);
-        //have the pawn shoot
+
+        //check if the object can attack!
+        if (canAttack)
+        {
         pawn.Shoot();
+        }
+        
     }
     
+    //do the seek action on the target
+    public void DoSeekState()
+    {
+        // Seek our target
+        Seek(target);
+    }
+
+    //the way the ai will move around to find a target
     protected void Patrol()
     {   
         //if the current waypoint is less than the final instance in the waypoint array
@@ -157,7 +273,8 @@ public class AiController : Controller
         }
     }
 
-      protected void Flee()
+    //the way the ai will flee from a target
+    protected void Flee()
     {
         //find the difference between the two vector3s of the target and pawn
         Vector3 vectorToTarget = target.transform.position - pawn.transform.position;
@@ -170,13 +287,6 @@ public class AiController : Controller
 
         //take the position of the pawn + the vector it'll travel and have it seek that path
         Seek(pawn.transform.position + fleeVector);
-    }
-
-    //
-    public void DoSeekState()
-    {
-        // Seek our target
-        Seek(target);
     }
     
     //Seek the target gameObject's position
@@ -211,16 +321,20 @@ public class AiController : Controller
         // Move Forward
         pawn.MoveForward(sprintBool);
     }
+    
+    //retart the patrol
     protected void RestartPatrol()
     {
         //set the current waypoint to 0
         currentWaypoint = 0;
     }
 
-    protected bool IfHasTarget()
+    //check if there's a target
+    protected bool AiHasTarget()
     {
         //return true if we have a target and false otherwise
         return (target != null);
     }
+
 }
 
