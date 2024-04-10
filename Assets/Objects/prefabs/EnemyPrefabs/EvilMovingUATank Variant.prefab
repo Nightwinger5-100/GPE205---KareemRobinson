@@ -52,6 +52,14 @@ PrefabInstance:
       propertyPath: distanceMultiplier
       value: 1.2
       objectReference: {fileID: 0}
+    - target: {fileID: -7729885017128215708, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: waypointStopDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7729885017128215708, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: waypoints.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2373121090864241249, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       propertyPath: fireRate
       value: 3

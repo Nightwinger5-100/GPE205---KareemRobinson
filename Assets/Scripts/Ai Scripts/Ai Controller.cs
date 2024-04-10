@@ -50,20 +50,21 @@ public class AiController : Controller
     //increase the distance by this amount for distance variables to make it less stiff
     public float distanceMultiplier;
 
-    //the bool for if the ai is sprinting
-    public bool sprintBool;
-
-    //if the ai will restart their patrol upon reaching the end
-    public bool resetPatrolBool;
+    //the distance to travel before halting within a patrol
+    public float waypointStopDistance;
 
     //an array of places to patrol between
     public Transform[] waypoints;
 
-    //the distance to travel before halting within a patrol
-    public float waypointStopDistance;
+    //if the ai will restart their patrol upon reaching the end
+    public bool resetPatrolBool;
 
+    //the bool for if the ai is sprinting
+    public bool sprintBool;
+    
     //the current waypoint to patrol
     private int currentWaypoint = 0;
+    
     
     //Adds target if necessary
     public override void Start()
@@ -117,39 +118,9 @@ public class AiController : Controller
         }
     }
 
-    //locate the closest tank out of all the tanks, then make that the target
-    protected void FindNearestTank()
-    {
-        //get the list of  all the tanks
-        Pawn[] allTanks = FindObjectsOfType<Pawn>();
-
-        //make the first tank the closest
-        Pawn closestTank = allTanks[0];
-
-        //make the first tank the current closest distance
-        float closestTankDistance = Vector3.Distance(pawn.transform.position, closestTank.transform.position);
-
-        //loop through each instance in the tank list
-        foreach(Pawn tank in allTanks)
-        {
-            //check if the current tank distance is closer than the current closestTankDistance
-            if (Vector3.Distance(pawn.transform.position, tank.transform.position) < closestTankDistance)
-            {
-                //if the tank is the closer make it the new closest tank
-                closestTank = tank;
-                //and make it's distance the new closest
-                closestTankDistance = Vector3.Distance(pawn.transform.position, tank.transform.position);;
-            }
-        }
-        //make the closest tank the target
-        target = closestTank.gameObject;
-    }
-
     //How do i reference all the players in the game?
     
     //the states the ai will switch between at any given time
-    
-    //
     public void MakeDecisions()
     {
         switch (currentState) 
@@ -157,26 +128,8 @@ public class AiController : Controller
             //check if if needs to switch states and if those states are enabled!
             case AiState.Idle:
                 DoIdleState();
-                
-                //check if they're within the distance to start the state
-                if (IsDistanceLessThan(target, chaseDistance))
-                {
-                    if (canChase)
-                    {
-                    //store the normal chase distance and start chase state;
-                    chaseDistance *= distanceMultiplier;
-                    ChangeState(AiState.Chase); 
-                    }
-                }
-                if (IsDistanceLessThan(target, fleeDistance))
-                {
-                    if (canFlee)
-                    {
-                    //store the normal flee distance and start flee state;
-                    fleeDistance *= distanceMultiplier;
-                    ChangeState(AiState.Flee); 
-                    }
-                }
+                checkDistances();
+
                 break;
 
             //check if they're in chase distance still
@@ -201,7 +154,43 @@ public class AiController : Controller
                 }
                 break;
             
+            //check if they should still be patrolling or switching to another state
+            case AiState.Patrol:
+                Patrol();
+                checkDistances();
+                break;
         }
+    }
+    
+    //check if the ai should be in either distanceBased state. Otherwise, make them patrol if they should be on patrol
+    public void checkDistances()
+    {
+        //check if they're within the distance to start the state
+                if (IsDistanceLessThan(target, chaseDistance))
+                {
+                    if (canChase)
+                    {
+                    //store the normal chase distance and start chase state;
+                    chaseDistance *= distanceMultiplier;
+                    ChangeState(AiState.Chase); 
+                    }
+                }
+                else if (IsDistanceLessThan(target, fleeDistance))
+                {
+                    if (canFlee)
+                    {
+                    //store the normal flee distance and start flee state;
+                    fleeDistance *= distanceMultiplier;
+                    ChangeState(AiState.Flee); 
+                    }
+                }
+                else
+                {
+                    if (canPatrol)
+                    {
+                    ChangeState(AiState.Patrol);    
+                    }
+                }
     }
 
     //stores the previous state and updates the current state
@@ -258,7 +247,7 @@ public class AiController : Controller
         if (waypoints.Length > currentWaypoint)
         {   
             //find the index of waypoint thats equal to the currentWaypoint
-            Seek(waypoints[currentWaypoint]);
+            Seek(waypoints[currentWaypoint].transform);
             //if close enough move onto the next way point
             if (Vector3.Distance(pawn.transform.position, waypoints[currentWaypoint].position) < waypointStopDistance)
             {
@@ -276,6 +265,15 @@ public class AiController : Controller
     //the way the ai will flee from a target
     protected void Flee()
     {
+        //the distance between the target and the ai
+        float targetDistance = Vector3.Distance(target.transform.position, pawn.transform.position);
+        //the percentage of that distance from the flee distance
+        float percentOfFleeDistance = targetDistance / fleeDistance;
+        //make sure percentOfFleeDistance number is between 100% and 0% distance
+        percentOfFleeDistance = Mathf.Clamp01(percentOfFleeDistance);
+        //invert the % so now, the farther the ai is the "closer" it flees(and vice versa)
+        float flippedPercentOfFleeDistance = 1 - percentOfFleeDistance;
+
         //find the difference between the two vector3s of the target and pawn
         Vector3 vectorToTarget = target.transform.position - pawn.transform.position;
 
@@ -283,7 +281,7 @@ public class AiController : Controller
         Vector3 vectorAwayFromTarget = -vectorToTarget;
 
         //the direction to travel * the length of the travel distance
-        Vector3 fleeVector = vectorAwayFromTarget.normalized * fleeDistance;
+        Vector3 fleeVector = vectorAwayFromTarget.normalized * flippedPercentOfFleeDistance;
 
         //take the position of the pawn + the vector it'll travel and have it seek that path
         Seek(pawn.transform.position + fleeVector);
@@ -322,6 +320,34 @@ public class AiController : Controller
         pawn.MoveForward(sprintBool);
     }
     
+    //locate the closest tank out of all the tanks, then make that the target
+    protected void FindNearestTank()
+    {
+        //get the list of  all the tanks
+        Pawn[] allTanks = FindObjectsOfType<Pawn>();
+
+        //make the first tank the closest
+        Pawn closestTank = allTanks[0];
+
+        //make the first tank the current closest distance
+        float closestTankDistance = Vector3.Distance(pawn.transform.position, closestTank.transform.position);
+
+        //loop through each instance in the tank list
+        foreach(Pawn tank in allTanks)
+        {
+            //check if the current tank distance is closer than the current closestTankDistance
+            if (Vector3.Distance(pawn.transform.position, tank.transform.position) < closestTankDistance)
+            {
+                //if the tank is the closer make it the new closest tank
+                closestTank = tank;
+                //and make it's distance the new closest
+                closestTankDistance = Vector3.Distance(pawn.transform.position, tank.transform.position);;
+            }
+        }
+        //make the closest tank the target
+        target = closestTank.gameObject;
+    }
+
     //retart the patrol
     protected void RestartPatrol()
     {
