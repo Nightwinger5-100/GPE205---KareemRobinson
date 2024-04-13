@@ -233,7 +233,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!135 &8960310079402385945
 SphereCollider:
@@ -315,10 +315,10 @@ MonoBehaviour:
   chaseDistance: 10
   fleeDistance: 10
   distanceMultiplier: 1.2
-  sprintBool: 0
-  resetPatrolBool: 1
-  waypoints: []
   waypointStopDistance: 0
+  waypoints: []
+  resetPatrolBool: 1
+  sprintBool: 0
 --- !u!114 &261155946533827442
 MonoBehaviour:
   m_ObjectHideFlags: 0
