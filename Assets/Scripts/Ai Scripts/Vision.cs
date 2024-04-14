@@ -14,9 +14,35 @@ public class Vision : MonoBehaviour
     public float maxDistance;
     [SerializeField] LineRenderer lineRend;
     public GameObject thetarget;
+
+    public void Start()
+    {
+        targetPlayerOne();
+    }
     public void Update()
     {
-        CanSee(thetarget);
+        if (thetarget != null)
+        {
+            CanSee(thetarget);
+        }
+    }
+
+        //set the first player as the target
+    public void targetPlayerOne()
+    {   
+        //if the gameManager exists
+        if (GameManager.instance != null)
+        {   //if the player list exists
+            if (GameManager.instance.players != null)
+            {   
+                //if there's at least 1 player
+                if (GameManager.instance.players.Count > 0)
+                {
+                    //find the first instance of the player and make that the target
+                    thetarget = GameManager.instance.players[0].pawn.gameObject;
+                }
+            }
+        }
     }
 
     //testing raycast

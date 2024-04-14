@@ -41,7 +41,17 @@ public class TankShooter : Shooter
         {
             //AddForce to make it move forward
             rb.AddForce(firepointTransform.forward * fireForce);
+            if (GetComponent<NoiseMaker>())
+            {
+                NoiseMaker noiseMaker = GetComponent<NoiseMaker>();
+                noiseMaker.makeSound();
+            }
+            else
+            {
+                //print("didnt find the component");
+            }
         }
+        
         // Destroy it after a set time
         Destroy(newBullet, lifeTime);
     }

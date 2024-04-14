@@ -56,9 +56,10 @@ public class NoiseMaker : MonoBehaviour
         //add the volumeDistance in the noisemaker to the hearingDistance of this object
         float totalDistance  = noiseMaker.currentVolumeDistance + hearingDistance;
 
-        //if the distance being made is greater than the distance between the two objects return true
+        //if the volume made is greater than the distance between the two objects return true
         if (Vector3.Distance(transform.position, target.transform.position) <= totalDistance)
         {
+            print("heard you");
             return true;
         //otherwise return false
         } else {
@@ -94,7 +95,6 @@ public class NoiseMaker : MonoBehaviour
         currentVolumeDistance = 0;
         startTimeEvent = 0;
         endTimeEvent = 0;
-        print("no more sound");
     }
 
     //starts a timer for update()
@@ -107,7 +107,7 @@ public class NoiseMaker : MonoBehaviour
     
     public void Start()
     {
-        makeSound();
+        //makeSound();
     }
 
     //mainly checking if it needs to start a sound or stop a sound
