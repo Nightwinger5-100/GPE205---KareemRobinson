@@ -41,7 +41,7 @@ public class TankShooter : Shooter
         {
             //AddForce to make it move forward
             rb.AddForce(firepointTransform.forward * fireForce);
-            if (GetComponent<NoiseMaker>())
+            if ((GetComponent<NoiseMaker>())&&(GetComponent<NoiseMaker>().enabled))
             {
                 NoiseMaker noiseMaker = GetComponent<NoiseMaker>();
                 noiseMaker.makeSound();

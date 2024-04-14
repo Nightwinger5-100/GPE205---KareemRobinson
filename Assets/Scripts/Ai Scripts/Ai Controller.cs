@@ -24,8 +24,7 @@ public class AiController : Controller
     public bool canScan;
 
     public bool canBackToPost;
-
-
+    
     //the current state the ai is in
     public AiState currentState;
 
@@ -109,7 +108,13 @@ public class AiController : Controller
         {
         //run makeDecisions
         MakeDecisions();
-        GetComponent<NoiseMaker>().CanHear(target);    
+
+        //check if they can listen for the target
+        if ((GetComponent<NoiseMaker>())&&(GetComponent<NoiseMaker>().enabled))
+        {
+            GetComponent<NoiseMaker>().CanHear(target); 
+        }  
+
         }
         else
         {
@@ -271,11 +276,32 @@ public class AiController : Controller
     //check the distance between the target and the ai
     protected bool IsDistanceLessThan(GameObject target, float distance)
     {
+        //if their within the distance...
         if(Vector3.Distance (pawn.transform.position, target.transform.position) < distance)
         {
-            return true;
+            //check if they even have vision, otherwise just return true
+            if(GetComponent<Vision>().enabled)
+            {
+                //check if theyre visible
+                return IsVisible(target);
+            }
+            else
+            {
+                return true;
+            }
+            
         }
-        return false;
+        else
+        {
+            return false;
+        } 
+    }
+
+    //check if the target is in their fov and if theyre vision is obstructed
+    protected bool IsVisible(GameObject target)
+    {
+        //print(GetComponent<Vision>().CanSee(target));
+        return GetComponent<Vision>().CanSee(target);
     }
 
     //do nothing 
@@ -320,23 +346,27 @@ public class AiController : Controller
     //the way the ai will move around to find a target
     protected void Patrol()
     {   
-        //if the current waypoint is less than the final instance in the waypoint array
-        if (waypoints.Length > currentWaypoint)
-        {   
-            //find the index of waypoint thats equal to the currentWaypoint
-            Seek(waypoints[currentWaypoint].transform);
-            //if close enough move onto the next way point
-            if (Vector3.Distance(pawn.transform.position, waypoints[currentWaypoint].position) < waypointStopDistance)
-            {
-                currentWaypoint++;
-            }
-            //otherwise restart the patrol num
-        }  
-        //if we reached the end and want to reset the patrol
-        else if (resetPatrolBool)   
+        if (canPatrol)
         {
-            RestartPatrol();
+            //if the current waypoint is less than the final instance in the waypoint array
+            if (waypoints.Length > currentWaypoint)
+            {   
+                //find the index of waypoint thats equal to the currentWaypoint
+                Seek(waypoints[currentWaypoint].transform);
+                //if close enough move onto the next way point
+                if (Vector3.Distance(pawn.transform.position, waypoints[currentWaypoint].position) < waypointStopDistance)
+                {
+                    currentWaypoint++;
+                }
+                //otherwise restart the patrol num
+            }  
+            //if we reached the end and want to reset the patrol
+            else if (resetPatrolBool)   
+            {
+                RestartPatrol();
+            }        
         }
+
     }
 
     //the way the ai will flee from a target
@@ -404,15 +434,10 @@ public class AiController : Controller
         }
         
         
-        if (canChase)
+        if (canChase || canPatrol || canFlee)
         {
         // Move Forward
         pawn.MoveForward(sprintBool);
-        }
-        else if (canPatrol)
-        {
-        // Move Forward
-        pawn.MoveForward(sprintBool);    
         }
         
     }
@@ -448,7 +473,7 @@ public class AiController : Controller
 
         //make the closest tank the target
         target = closestTank.gameObject;
-        print(target);
+        //Debug.Log(target);
     }
 
     //retart the patrol

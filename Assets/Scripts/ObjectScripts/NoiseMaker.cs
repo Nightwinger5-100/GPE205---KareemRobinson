@@ -59,7 +59,7 @@ public class NoiseMaker : MonoBehaviour
         //if the volume made is greater than the distance between the two objects return true
         if (Vector3.Distance(transform.position, target.transform.position) <= totalDistance)
         {
-            print("heard you");
+            Debug.Log("heard sound by:" + target);
             return true;
         //otherwise return false
         } else {
@@ -67,14 +67,22 @@ public class NoiseMaker : MonoBehaviour
         }    
     }
 
+    //print "Played sound"
+    public bool soundLogBool;
+
     //make sound and sets the timeEvent var
     public void makeSound()
     {
+        if (soundLogBool)
+        {
+            Debug.Log("played sound");
+        }
+        
         //play the sound if it's not being played
         if (currentVolumeDistance != volumeDistance)
         {
         currentVolumeDistance = volumeDistance;
-        print("playing sound at distance: "+ currentVolumeDistance);
+        Debug.Log("playing sound at distance: "+ currentVolumeDistance);
         }
         //update the timeEvent numbers
         if (startDelay)
@@ -92,6 +100,7 @@ public class NoiseMaker : MonoBehaviour
     public void stopSound()
     {
         //set the volume to 0
+        Debug.Log("Sound is zero");
         currentVolumeDistance = 0;
         startTimeEvent = 0;
         endTimeEvent = 0;
@@ -155,7 +164,7 @@ public class NoiseMaker : MonoBehaviour
                 //when the current time is greater than the nextTimeEvent...
                 if (Time.time >= endTimeEvent)
                 {
-                    print("Stopping sound");
+                    Debug.Log("Stopping sound");
                     stopSound();
                     beganEndTimeEvent = false;
                 }

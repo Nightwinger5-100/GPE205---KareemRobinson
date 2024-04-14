@@ -321,9 +321,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c2364dc954bb9c4592d18011faabb0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeDistance: 15
+  volumeDistance: 5
   hearingDistance: 0
   startTimerDelay: 1
   endTimerDelay: 1
   startDelay: 0
   endDelay: 1
+  soundLogBool: 0

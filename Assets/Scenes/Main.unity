@@ -157,7 +157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7729885017128215708, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       propertyPath: guardDistance
-      value: 5
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: -7729885017128215708, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       propertyPath: targetNearest
@@ -188,8 +188,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2124336026}
     - target: {fileID: -6214681607906260636, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: fov
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: -6214681607906260636, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: lineRend
+      value: 
+      objectReference: {fileID: 1569125210}
+    - target: {fileID: -6214681607906260636, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6214681607906260636, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: maxDistance
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2373121090864241249, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       propertyPath: mover
@@ -199,6 +211,14 @@ PrefabInstance:
       propertyPath: shooter
       value: 
       objectReference: {fileID: 1569125197}
+    - target: {fileID: 7605728033038348379, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605728033038348379, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: volumeDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 21.12
@@ -491,6 +511,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9bdf6a93e2e2f4d8c6d7143c631d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!120 &667412757 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: -1960874085414209861, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+  m_PrefabInstance: {fileID: 1824966601}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &669451923 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 261155946533827442, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
@@ -524,6 +549,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9bdf6a93e2e2f4d8c6d7143c631d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!120 &669451936 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: -1960874085414209861, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+  m_PrefabInstance: {fileID: 730702814}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,6 +689,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7729885017128215708, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: chaseDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -7729885017128215708, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       propertyPath: targetNearest
       value: 0
       objectReference: {fileID: 0}
@@ -687,8 +721,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2124336026}
     - target: {fileID: -6214681607906260636, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: fov
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: -6214681607906260636, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: lineRend
+      value: 
+      objectReference: {fileID: 669451936}
+    - target: {fileID: -6214681607906260636, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6214681607906260636, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: maxDistance
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2373121090864241249, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       propertyPath: mover
@@ -1452,6 +1498,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2124336026}
     - target: {fileID: -6214681607906260636, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: lineRend
+      value: 
+      objectReference: {fileID: 2040895510}
+    - target: {fileID: -6214681607906260636, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -1463,6 +1513,18 @@ PrefabInstance:
       propertyPath: shooter
       value: 
       objectReference: {fileID: 2040895497}
+    - target: {fileID: 7605728033038348379, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605728033038348379, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: volumeDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605728033038348379, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: hearingDistance
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8484690269699158940, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.1
@@ -1545,6 +1607,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9bdf6a93e2e2f4d8c6d7143c631d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!120 &1569125210 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: -1960874085414209861, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+  m_PrefabInstance: {fileID: 221624861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1683698407 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5774378064019383189, guid: 9a056e2e540bbe841922480b1834a0c2, type: 3}
@@ -1692,6 +1759,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7729885017128215708, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: fleeDistance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -7729885017128215708, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       propertyPath: targetNearest
       value: 0
       objectReference: {fileID: 0}
@@ -1716,8 +1787,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2124336026}
     - target: {fileID: -6214681607906260636, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: fov
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: -6214681607906260636, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: lineRend
+      value: 
+      objectReference: {fileID: 667412757}
+    - target: {fileID: -6214681607906260636, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6214681607906260636, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      propertyPath: maxDistance
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2373121090864241249, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       propertyPath: mover
@@ -1914,6 +1997,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9bdf6a93e2e2f4d8c6d7143c631d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!120 &2040895510 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: -1960874085414209861, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+  m_PrefabInstance: {fileID: 1418332634}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2124336022
 GameObject:
   m_ObjectHideFlags: 0
