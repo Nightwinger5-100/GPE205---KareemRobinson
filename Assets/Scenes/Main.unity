@@ -204,11 +204,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 9148073581426632998, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
+      insertIndex: 5
+      addedObject: {fileID: 1614553178}
+    - targetCorrespondingSourceObject: {fileID: 9148073581426632998, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1614553167}
     - targetCorrespondingSourceObject: {fileID: 9148073581426632998, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1614553178}
+      addedObject: {fileID: 1614553179}
   m_SourcePrefab: {fileID: 100100000, guid: 8dd3f00921e6c00489cbcba2ee3ab39a, type: 3}
 --- !u!1 &397075739
 GameObject:
@@ -1181,6 +1184,24 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1614553179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1614553166}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c2364dc954bb9c4592d18011faabb0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeDistance: 0
+  hearingDistance: 0
+  startTimerDelay: 3
+  endTimerDelay: 3
+  startDelay: 0
+  endDelay: 0
 --- !u!4 &1683698407 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5774378064019383189, guid: 9a056e2e540bbe841922480b1834a0c2, type: 3}
