@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -8,6 +9,20 @@ public class Health : MonoBehaviour
     public float currentHealth;
     //the max hp of the object
     public float maxHealth;
+
+    //the time for if the effect is over
+    private float nextTimeEvent = 0;
+    
+    //the time for if the effect needs to occur
+    private float timeEventDelay;
+
+    private float timeEventDuration;
+
+    private float amount;
+
+    private float speed;
+
+    private Pawn pawn;
 
     public void Start()
     {
@@ -52,6 +67,51 @@ public class Health : MonoBehaviour
         //add the amount to health and print it
         currentHealth = currentHealth + amount;
         Debug.Log(source.name + " healed " + amount + " to " + gameObject.name);
+    }
+
+    public void HealOvertime(float healAmount, float healDuration, float healSpeed, Pawn source)
+    {   
+        //if there's no timer start one and set all the variables
+        if (nextTimeEvent <= 0)
+        {
+            amount = healAmount;
+            timeEventDuration = healDuration;
+            pawn = source;
+            speed = healSpeed;
+            timeEventDelay = healSpeed + Time.time;
+            nextTimeEvent = Time.time + healDuration;
+            
+        }
+        else
+        {
+            timeEventDelay = healSpeed + Time.time;
+        }
+        
+        Heal(amount, source);
+    }
+
+    public void Update()
+    {
+        if (nextTimeEvent > 0)
+        {
+            //if the heal effect is still active...
+            if (nextTimeEvent > Time.time)
+            {
+                //if it's time to heal again...
+                if (timeEventDelay < Time.time)
+                {
+                timeEventDelay = Time.time;
+                //regardless run the function again until the effect is over
+                HealOvertime(amount, timeEventDuration, speed, pawn); 
+                }
+       
+            }
+            else
+            {
+                Debug.Log("done");
+                nextTimeEvent = 0;
+            }
+        }
     }
 
     //check if their dead because their hp is less than 0
