@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -58,8 +59,8 @@ public class AiController : Controller
     //the distance to travel before halting within a patrol
     public float waypointStopDistance;
 
-    //an array of places to patrol between
-    public Transform[] waypoints;
+    //an List of places to patrol between
+    public List<Transform> waypoints = new List<Transform>();
 
     //if the ai will restart their patrol upon reaching the end
     public bool resetPatrolBool;
@@ -72,12 +73,27 @@ public class AiController : Controller
     
     //the current waypoint to patrol
     private int currentWaypoint = 0;
-    
-    
+
+
+    //the spawnPoint selected
+    int spawn;
+
     //Adds target if necessary
     public override void Start()
     {
+
+        //if the gameManager exists
+       if(GameManager.instance != null) 
+       {
+        //if the list "ai" exists
+        if(GameManager.instance.ai != null) 
+        {
+            //add this ai to the list
+            GameManager.instance.ai.Add(this);
+        }
+    }
         
+
         //if there's currently no target make the first player the target
         if (AiHasTarget())
         {
@@ -108,11 +124,11 @@ public class AiController : Controller
         {
         //run makeDecisions
         MakeDecisions();
-
+ 
         //check if they can listen for the target
-        if ((GetComponent<NoiseMaker>())&&(GetComponent<NoiseMaker>().enabled))
+        if ((pawn.GetComponent<NoiseMaker>())&&(pawn.GetComponent<NoiseMaker>().enabled))
         {
-            GetComponent<NoiseMaker>().CanHear(target); 
+            pawn.GetComponent<NoiseMaker>().CanHear(target); 
         }  
 
         }
@@ -197,7 +213,11 @@ public class AiController : Controller
         
             //check if they should still be patrolling or switching to another state
             case AiState.Patrol:
+
+            if (waypoints.Count > 0)
+            {
                 Patrol();
+            }
                 checkStates();
             break;
         }
@@ -279,8 +299,9 @@ public class AiController : Controller
         //if their within the distance...
         if(Vector3.Distance (pawn.transform.position, target.transform.position) < distance)
         {
+            Vision vision = pawn.GetComponent<Vision>();
             //check if they even have vision, otherwise just return true
-            if(GetComponent<Vision>().enabled)
+            if(vision != null && vision.enabled)
             {
                 //check if theyre visible
                 return IsVisible(target);
@@ -300,8 +321,7 @@ public class AiController : Controller
     //check if the target is in their fov and if theyre vision is obstructed
     protected bool IsVisible(GameObject target)
     {
-        //print(GetComponent<Vision>().CanSee(target));
-        return GetComponent<Vision>().CanSee(target);
+        return pawn.GetComponent<Vision>().CanSee(target);
     }
 
     //do nothing 
@@ -349,12 +369,13 @@ public class AiController : Controller
         if (canPatrol)
         {
             //if the current waypoint is less than the final instance in the waypoint array
-            if (waypoints.Length > currentWaypoint)
+            if (waypoints.Count > currentWaypoint && pawn != null)
             {   
+                
                 //find the index of waypoint thats equal to the currentWaypoint
                 Seek(waypoints[currentWaypoint].transform);
                 //if close enough move onto the next way point
-                if (Vector3.Distance(pawn.transform.position, waypoints[currentWaypoint].position) < waypointStopDistance)
+                if (Vector3.Distance(pawn.transform.position, waypoints[currentWaypoint].transform.position) < waypointStopDistance)
                 {
                     currentWaypoint++;
                 }
@@ -415,7 +436,8 @@ public class AiController : Controller
     //Seek the controller owner
     public void Seek (Controller targetController)
     {
-        Seek(targetController);
+        print("sdwqcev");
+        Seek(pawn);
     }
 
     //Rotate toward a position and move toward it
@@ -450,14 +472,19 @@ public class AiController : Controller
 
         //make the first tank the closest
         Pawn closestTank = allTanks[0];
-
+        
+        if (closestTank = this.pawn)
+        {
+            closestTank = allTanks[1];
+        }
+        
         //make the first tank the current closest distance
         float closestTankDistance = Vector3.Distance(pawn.transform.position, closestTank.transform.position);
 
         //loop through each instance in the tank list
         foreach(Pawn tank in allTanks)
         {
-            if (transform.gameObject != tank.gameObject)
+            if (this.pawn != tank)
             {
                 //check if the current tank distance is closer than the current closestTankDistance
                 if (Vector3.Distance(pawn.transform.position, tank.transform.position) < closestTankDistance)
@@ -490,5 +517,7 @@ public class AiController : Controller
         return (target != null);
     }
     
+
+
 }
 

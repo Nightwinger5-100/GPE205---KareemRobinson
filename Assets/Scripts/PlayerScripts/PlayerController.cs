@@ -33,7 +33,8 @@ public class PlayerController : Controller
             //add this player to the list
             GameManager.instance.players.Add(this);
         }
-       }
+    }
+    
     //run Start() from the parent class
     base.Start();
     }

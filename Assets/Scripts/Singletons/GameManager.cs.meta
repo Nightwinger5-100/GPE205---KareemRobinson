@@ -3,7 +3,22 @@ guid: 02b8fd4ceceb29449be5b4d8def563b6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - playerControllerPrefab: {fileID: 3188509175213661448, guid: ad1ae815336a0784896f08dc6cf24606, type: 3}
+  - chaserAiControllerPrefab: {fileID: 8506771921263064413, guid: 16ffd1ef7d3da684c8db7dabd1dbeec4, type: 3}
+  - guarderAiControllerPrefab: {fileID: 6754223308540956557, guid: 31af9c4acbe83cd4ba83dedb9edfee7b, type: 3}
+  - patrollerAiControllerPrefab: {fileID: 8950155090036442016, guid: cca88867bd110174f82d72805fde64f0, type: 3}
+  - runnerAiControllerPrefab: {fileID: 8323485492190599817, guid: 8bc7d2a2a5f0c0c47b8b340b30aec955, type: 3}
+  - tankPawnPrefab: {fileID: 4125476287880866599, guid: 98f55c6ccae711a438622338fda163f7, type: 3}
+  - chaserAiPrefab: {instanceID: 0}
+  - guarderAiPrefab: {instanceID: 0}
+  - patrollerAiPrefab: {instanceID: 0}
+  - runnerAiPrefab: {instanceID: 0}
+  - playerSpawnTransform: {instanceID: 0}
+  - chaserAiSpawn: {instanceID: 0}
+  - guarderAiSpawn: {instanceID: 0}
+  - patrollerAiSpawn: {instanceID: 0}
+  - runnerAiSpawn: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

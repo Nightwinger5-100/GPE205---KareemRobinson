@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8506771921263064413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 897121791618995523}
+  - component: {fileID: 3116868073624355543}
+  m_Layer: 0
+  m_Name: chaseAiController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &897121791618995523
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8506771921263064413}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.711893, y: -16.99614, z: 2.5887692}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3116868073624355543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8506771921263064413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ddfd2fc75c034947ae9e7f9ab597736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pawn: {fileID: 4437545117667554655, guid: 05aa25dea474f3145b7cd3ab1bec0b78, type: 3}
+  canGuard: 0
+  canChase: 1
+  canFlee: 0
+  canPatrol: 0
+  canAttack: 1
+  canScan: 0
+  canBackToPost: 1
+  currentState: 7
+  target: {fileID: 0}
+  chaseDistance: 15
+  guardDistance: 15
+  fleeDistance: 15
+  distanceMultiplier: 1.2
+  waypointStopDistance: 15
+  waypoints: []
+  resetPatrolBool: 1
+  sprintBool: 0
+  targetNearest: 0

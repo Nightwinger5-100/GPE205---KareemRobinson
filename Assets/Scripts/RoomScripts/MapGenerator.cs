@@ -1,19 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
+    //each room generated
     public GameObject[] gridPrefabs;
+
+    //the amount of room rows/columns that'll be generated 
     public int rows;
     public int cols;
+
+    //the size of the rooms
     public float roomWidth = 50.0f;
     public float roomHeight = 50.0f;
+
+    //the map that''ll be generated based on the seed
+    public int mapSeed;
+    
+    //the map that'll be generated based on time
+    public bool isTimeBasedSeedGeneration;
+
+    //the map that'll be generated based on the year,month,day
+    public bool isMapOfTheDay;
+
     private Room[,] grid;
 
     // Start is called before the first frame update
     public void Start()
     {
+        pickMapSeedGen();
         GenerateMap();
     }
 
@@ -22,15 +39,41 @@ public class MapGenerator : MonoBehaviour
     {
         
     }
+    
+    //decides what the map seed will be and how it'lll be picked
+    public void pickMapSeedGen()
+    {
+        if (isMapOfTheDay)
+        {
+            mapSeed = DateToInt (DateTime.Now.Date);           
+        }
+        else if (isTimeBasedSeedGeneration)
+        {
+            UnityEngine.Random.InitState(DateToInt(DateTime.Now));
+        }
+        else
+        {
+            
+            UnityEngine.Random.InitState(mapSeed);
+        }
+        Debug.Log("The map seed is " + mapSeed);
+    }
+
+    public int DateToInt ( DateTime dateToUse ) 
+    {
+     // Add our date up and return it
+     return dateToUse.Year + dateToUse.Month + dateToUse.Day + dateToUse.Hour + dateToUse.Minute + dateToUse.Second + dateToUse.Millisecond;
+    }
 
      // Returns a random room
     public GameObject RandomRoomPrefab () 
     {
-     return gridPrefabs[Random.Range(0, gridPrefabs.Length)];
+     return gridPrefabs[UnityEngine.Random.Range(0, gridPrefabs.Length)];
     }
 
     public void GenerateMap() 
      {
+        
      // Clear out the grid - "column" is our X, "row" is our Y
      grid = new Room[cols, rows];
 
@@ -62,7 +105,9 @@ public class MapGenerator : MonoBehaviour
            
         }
      }
- }
+    
+    FindObjectOfType<GameManager>().randomSpawn();
+    }
 
     public void openColumnDoor(Room tempRoom, int currentCol)
     {

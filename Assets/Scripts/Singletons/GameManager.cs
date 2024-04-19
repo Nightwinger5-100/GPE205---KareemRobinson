@@ -9,10 +9,17 @@ public class GameManager : MonoBehaviour
     //as a static so this is the one that can be accessed anywhere
     public static GameManager instance;
 
-    // Controller Prefabs
+    // Player Controller Prefab
     public GameObject playerControllerPrefab;
 
-    public GameObject aiControllerPrefab;
+    // Ai Controller prefabs
+    public GameObject chaserAiControllerPrefab;
+
+    public GameObject guarderAiControllerPrefab;
+
+    public GameObject patrollerAiControllerPrefab;
+
+    public GameObject runnerAiControllerPrefab;
 
     //player prefab
     public GameObject tankPawnPrefab;
@@ -37,11 +44,18 @@ public class GameManager : MonoBehaviour
     public Transform patrollerAiSpawn;
 
     public Transform runnerAiSpawn;
-    
-
 
     //player list
     public List<PlayerController> players;
+
+    //ai list
+    public List<AiController> ai;
+
+    //max amount of powerups that can exist
+    public int maxAmountOfPowerups;
+
+    //current amount of power ups that exist
+    public int currentAmountOfPowerups;
 
     public void SpawnPlayer()
     {
@@ -59,29 +73,23 @@ public class GameManager : MonoBehaviour
         newController.pawn = newPawn;
     }
 
-    public void SpawnChaserAi()
+    public void SpawnChaserAi(GameObject spawnPoint)
     {
         // Spawn the Player Controller at (0,0,0) with no rotation
-        //GameObject aiObj = Instantiate(aiControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+        GameObject aiObj = Instantiate(chaserAiControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 
         // Spawn the pawn and connect it to the controller
-         GameObject newPawnObj = Instantiate(chaserAiPrefab, chaserAiSpawn.position, chaserAiSpawn.rotation) as GameObject;
+         GameObject newPawnObj = Instantiate(chaserAiPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
 
-        // Get the Player Controller and Pawn components
-        //Controller newController = aiObj.GetComponent<Controller>();
-        Pawn newPawn = newPawnObj.GetComponent<Pawn>();
+        //Get the spawnPoint Component and get all the waypoints the ai can patrol to
+        PawnSpawnPoint aiSpawn = spawnPoint.GetComponent<PawnSpawnPoint>();
 
-        //Connect
-        //newController.pawn = newPawn;
-    }
-
-    public void SpawnGuarderAi()
-    {
-        // Spawn the Player Controller at (0,0,0) with no rotation
-        GameObject aiObj = Instantiate(aiControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-
-        // Spawn the pawn and connect it to the controller
-         GameObject newPawnObj = Instantiate(guarderAiPrefab, playerSpawnTransform.position, playerSpawnTransform.rotation) as GameObject;
+        //for each waypoint on the spawner... 
+        for(int waypoint = 0; waypoint < aiSpawn.waypoints.Length; waypoint++)
+        {
+            //add it to the ai controller
+            aiObj.GetComponent<AiController>().waypoints.Add(aiSpawn.waypoints[waypoint].transform);
+        }
 
         // Get the Player Controller and Pawn components
         Controller newController = aiObj.GetComponent<Controller>();
@@ -91,13 +99,23 @@ public class GameManager : MonoBehaviour
         newController.pawn = newPawn;
     }
 
-    public void SpawnPatrollerAi()
+    public void SpawnGuarderAi(GameObject spawnPoint)
     {
         // Spawn the Player Controller at (0,0,0) with no rotation
-        GameObject aiObj = Instantiate(aiControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+        GameObject aiObj = Instantiate(guarderAiControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 
         // Spawn the pawn and connect it to the controller
-         GameObject newPawnObj = Instantiate(patrollerAiPrefab, playerSpawnTransform.position, playerSpawnTransform.rotation) as GameObject;
+         GameObject newPawnObj = Instantiate(guarderAiPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
+
+        //Get the spawnPoint Component and get all the waypoints the ai can patrol to
+        PawnSpawnPoint aiSpawn = spawnPoint.GetComponent<PawnSpawnPoint>();
+
+        //for each waypoint on the spawner... 
+        for(int waypoint = 0; waypoint < aiSpawn.waypoints.Length; waypoint++)
+        {
+            //add it to the ai controller
+            aiObj.GetComponent<AiController>().waypoints.Add(aiSpawn.waypoints[waypoint].transform);
+        }
 
         // Get the Player Controller and Pawn components
         Controller newController = aiObj.GetComponent<Controller>();
@@ -107,13 +125,49 @@ public class GameManager : MonoBehaviour
         newController.pawn = newPawn;
     }
 
-    public void SpawnRunnerAi()
+    public void SpawnPatrollerAi(GameObject spawnPoint)
     {
         // Spawn the Player Controller at (0,0,0) with no rotation
-        GameObject aiObj = Instantiate(aiControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+        GameObject aiObj = Instantiate(patrollerAiControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 
         // Spawn the pawn and connect it to the controller
-         GameObject newPawnObj = Instantiate(runnerAiPrefab, playerSpawnTransform.position, playerSpawnTransform.rotation) as GameObject;
+        GameObject newPawnObj = Instantiate(patrollerAiPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
+        
+        //Get the spawnPoint Component and get all the waypoints the ai can patrol to
+        PawnSpawnPoint aiSpawn = spawnPoint.GetComponent<PawnSpawnPoint>();
+
+        //for each waypoint on the spawner... 
+        for(int waypoint = 0; waypoint < aiSpawn.waypoints.Length; waypoint++)
+        {
+            //add it to the ai controller
+            aiObj.GetComponent<AiController>().waypoints.Add(aiSpawn.waypoints[waypoint].transform);
+        }
+
+        // Get the Player Controller and Pawn components
+        Controller newController = aiObj.GetComponent<Controller>();
+        Pawn newPawn = newPawnObj.GetComponent<Pawn>();
+
+        //Connect
+        newController.pawn = newPawn;
+    }
+
+    public void SpawnRunnerAi(GameObject spawnPoint)
+    {
+        // Spawn the Player Controller at (0,0,0) with no rotation
+        GameObject aiObj = Instantiate(runnerAiControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+
+        // Spawn the pawn and connect it to the controller
+         GameObject newPawnObj = Instantiate(runnerAiPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
+        
+        //Get the spawnPoint Component and get all the waypoints the ai can patrol to
+        PawnSpawnPoint aiSpawn = spawnPoint.GetComponent<PawnSpawnPoint>();
+
+        //for each waypoint on the spawner... 
+        for(int waypoint = 0; waypoint < aiSpawn.waypoints.Length; waypoint++)
+        {
+            //add it to the ai controller
+            aiObj.GetComponent<AiController>().waypoints.Add(aiSpawn.waypoints[waypoint].transform);
+        }
 
         // Get the Player Controller and Pawn components
         Controller newController = aiObj.GetComponent<Controller>();
@@ -140,29 +194,53 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void randomSpawn()
+    {
+        PawnSpawnPoint[] spawns = FindObjectsOfType<PawnSpawnPoint>();
+
+        //for each spawn point spawn, pick a random ai type, then spawn it.
+        for (int spawner = 0; spawner < spawns.Length-1; spawner++)
+        {
+            int pickedAi = Random.Range(0, 3);
+            switch (pickedAi)
+            {
+                //spawn the chaser ai
+                case 3:
+                SpawnChaserAi(spawns[spawner].gameObject);
+                break;
+
+                //spawn the guarder ai
+                case 2:
+                SpawnGuarderAi(spawns[spawner].gameObject);
+                break;
+
+                //spawn the patroller ai
+                case 1:
+                SpawnPatrollerAi(spawns[spawner].gameObject);
+                break;
+
+                //spawn the runner ai
+                case 0:
+
+                SpawnRunnerAi(spawns[spawner].gameObject);
+                break;
+            }
+                    
+        }
+        //spawn = UnityEngine.Random.Range(0, spawns.Length);
+        
+    }
+    
+    public void pickAiToSpawn(int caseNumber)
+    {
+        
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
         //Spawn the player
         SpawnPlayer();
-
-        //if there a spawn assigned spawn them
-        if (chaserAiSpawn != null)
-        {
-            SpawnChaserAi();
-        }
-        if (guarderAiSpawn != null)
-        {
-            SpawnGuarderAi();
-        }
-        if (patrollerAiSpawn != null)
-        {
-            SpawnPatrollerAi();
-        }
-        if (runnerAiSpawn != null)
-        {
-            SpawnRunnerAi();
-        }
     }
 
 }
