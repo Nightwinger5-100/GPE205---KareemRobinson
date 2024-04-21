@@ -57,13 +57,18 @@ public class GameManager : MonoBehaviour
     //current amount of power ups that exist
     public int currentAmountOfPowerups;
 
-    public void SpawnPlayer()
+    List<PawnSpawnPoint> storedPawnSpawns = new List<PawnSpawnPoint>();
+
+    List<PlayerSpawnPoint> storedPlayerSpawns = new List<PlayerSpawnPoint>();
+
+    public void SpawnPlayer(GameObject spawnPoint)
     {
+
         // Spawn the Player Controller at (0,0,0) with no rotation
         GameObject newPlayerObj = Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 
         // Spawn the pawn and connect it to the controller
-         GameObject newPawnObj = Instantiate(tankPawnPrefab, playerSpawnTransform.position, playerSpawnTransform.rotation) as GameObject;
+         GameObject newPawnObj = Instantiate(tankPawnPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
 
         // Get the Player Controller and Pawn components
         Controller newController = newPlayerObj.GetComponent<Controller>();
@@ -194,53 +199,69 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void randomSpawn()
+    public void randomAiSpawn()
     {
-        PawnSpawnPoint[] spawns = FindObjectsOfType<PawnSpawnPoint>();
+        PawnSpawnPoint[] pawnSpawns = FindObjectsOfType<PawnSpawnPoint>();
 
         //for each spawn point spawn, pick a random ai type, then spawn it.
-        for (int spawner = 0; spawner < spawns.Length-1; spawner++)
+        for (int spawner = 0; spawner < pawnSpawns.Length-1; spawner++)
         {
-            int pickedAi = Random.Range(0, 3);
+            int pickedAi = Random.Range(0, 4);
             switch (pickedAi)
             {
                 //spawn the chaser ai
                 case 3:
-                SpawnChaserAi(spawns[spawner].gameObject);
+                SpawnChaserAi(pawnSpawns[spawner].gameObject);
                 break;
 
                 //spawn the guarder ai
                 case 2:
-                SpawnGuarderAi(spawns[spawner].gameObject);
+                SpawnGuarderAi(pawnSpawns[spawner].gameObject);
                 break;
 
                 //spawn the patroller ai
                 case 1:
-                SpawnPatrollerAi(spawns[spawner].gameObject);
+                SpawnPatrollerAi(pawnSpawns[spawner].gameObject);
                 break;
 
                 //spawn the runner ai
                 case 0:
 
-                SpawnRunnerAi(spawns[spawner].gameObject);
+                SpawnRunnerAi(pawnSpawns[spawner].gameObject);
                 break;
-            }
-                    
+            }     
+        
+        //add the spawns to a list that can be referenced later
+        storedPawnSpawns.Add(pawnSpawns[spawner]);          
         }
         //spawn = UnityEngine.Random.Range(0, spawns.Length);
         
     }
     
-    public void pickAiToSpawn(int caseNumber)
+    public void randomPlayerSpawn()
     {
+        //Get the PlayerSpawnPoint Component and get all the spawn points the player can choose from
+        PlayerSpawnPoint[] playerSpawns = FindObjectsOfType<PlayerSpawnPoint>();
         
+        //store each player spawn
+        for (int playerSpawnToAdd = 0; playerSpawnToAdd <  playerSpawns.Length; playerSpawnToAdd++)
+        {
+            storedPlayerSpawns.Add(playerSpawns[playerSpawnToAdd]);
+        }
+
+        //Pick a spawn point for the player
+        int playerSpawn = Random.Range(0, playerSpawns.Length);
+
+        
+        SpawnPlayer(playerSpawns[playerSpawn].gameObject);
     }
+
 
     // Start is called before the first frame update
     private void Start()
     {
         //Spawn the player
-        SpawnPlayer();
+        //SpawnPlayer();
     }
 
 }

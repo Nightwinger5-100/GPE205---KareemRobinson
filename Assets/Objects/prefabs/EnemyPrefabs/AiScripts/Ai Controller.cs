@@ -119,32 +119,35 @@ public class AiController : Controller
     //Check if there's a target before running makeDecisions
     public override void Update()
     {
-        //if there's a target...
+        if (pawn != null)
+        {
+            //if there's a target...
         if (AiHasTarget())
         {
         //run makeDecisions
         MakeDecisions();
  
         //check if they can listen for the target
-        if ((pawn.GetComponent<NoiseMaker>())&&(pawn.GetComponent<NoiseMaker>().enabled))
+        if (pawn != null && (pawn.GetComponent<NoiseMaker>())&&(pawn.GetComponent<NoiseMaker>().enabled))
         {
             pawn.GetComponent<NoiseMaker>().CanHear(target); 
         }  
 
         }
-        else
-        {
-            if (targetNearest)
+
+        if (targetNearest)
             {
                 FindNearestTank();
             }
-            else
-            {
+        else if (!AiHasTarget())
+            {   
                 targetPlayerOne();
             }      
-        }
+        
         //run parent update()
         base.Update();
+        }
+
     }
 
     //set the first player as the target
@@ -227,7 +230,9 @@ public class AiController : Controller
     public void checkStates()
     {
         //check if they're within the distance to start the state
-                if (canChase)
+        if (pawn != null)
+        {
+                            if (canChase)
                 {
                     if (IsDistanceLessThan(target, chaseDistance))
                     {
@@ -280,7 +285,8 @@ public class AiController : Controller
                 {
                     ChangeState(AiState.Patrol);    
                 }
-    
+        }
+
     }
 
     //stores the previous state and updates the current state

@@ -37,11 +37,11 @@ public class Health : MonoBehaviour
         if (maxHealth < currentHealth + amount)
         {
             //Clamp could be done here but I feel this is simpler for getting the accurate healed amount
-            amount = maxHealth - currentHealth + amount;
+            amount = currentHealth + amount - maxHealth;
         }
         //subtract the amount from health and print it
         currentHealth = currentHealth - amount;
-        Debug.Log(source.name + " dealt " + amount + " damage to " + gameObject.name);
+        //Debug.Log(source.name + " dealt " + amount + " damage to " + gameObject.name);
         //After losing health, check if the pawn is now equal to or less than 0 hp
         if(currentHealth <= 0)
         {
@@ -52,21 +52,22 @@ public class Health : MonoBehaviour
     //get the pawn and increase their hp by the amount
     public void Heal(float amount, Pawn source)
     {
-        //if they aren't gonna gain any hp then there's nothing more to do
-        if(currentHealth == maxHealth)
-        {
-            print("Your health is already full!");
-            return;
-        }
         //check if the heal amount will be greater than the max hp. If so reduce the heal amount to only heal up to the max
-        else if (maxHealth < currentHealth + amount)
+        if (maxHealth < (currentHealth + amount))
         {
             //Clamp could be done here but I feel this is simpler for getting the accurate healed amount
             amount = maxHealth - currentHealth + amount;
         }
+        //if they aren't gonna gain any hp then there's nothing more to do
+        if(currentHealth == maxHealth || currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+            print("Your health is already full!");
+            return;
+        }
         //add the amount to health and print it
         currentHealth = currentHealth + amount;
-        Debug.Log(source.name + " healed " + amount + " to " + gameObject.name);
+        //Debug.Log(source.name + " healed " + amount + " to " + gameObject.name);
     }
 
     public void HealOvertime(float healAmount, float healDuration, float healSpeed, Pawn source)

@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
+    //the input to (re)generate the map
+    public KeyCode makeMapKey;
+
     //each room generated
     public GameObject[] gridPrefabs;
 
@@ -25,6 +28,10 @@ public class MapGenerator : MonoBehaviour
     //the map that'll be generated based on the year,month,day
     public bool isMapOfTheDay;
 
+    //check to see if at least one player room has spawned
+    private bool ifThereIsOnePlayerSpawn;
+    
+    //the col and rows
     private Room[,] grid;
 
     // Start is called before the first frame update
@@ -37,7 +44,7 @@ public class MapGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        ProcessInputs();
     }
     
     //decides what the map seed will be and how it'lll be picked
@@ -51,7 +58,7 @@ public class MapGenerator : MonoBehaviour
         {
             UnityEngine.Random.InitState(DateToInt(DateTime.Now));
         }
-        else
+        else if (mapSeed > 0)
         {
             
             UnityEngine.Random.InitState(mapSeed);
@@ -86,27 +93,53 @@ public class MapGenerator : MonoBehaviour
            float xPosition = roomWidth * currentCol;
            float zPosition = roomHeight * currentRow;
            Vector3 newPosition =  new Vector3 (xPosition, transform.position.y, zPosition);
-
-            //create the room object                 
-           GameObject tempRoomObj = Instantiate (RandomRoomPrefab(),  newPosition, Quaternion.identity) as GameObject;
+            //if the player has a place to spawn...
+            if (ifThereIsOnePlayerSpawn)
+            {
+                //create the room object                 
+                GameObject tempRoomObj = Instantiate (RandomRoomPrefab(),  newPosition, Quaternion.identity) as GameObject;
+                //parent that room object and name it
+                tempRoomObj.transform.parent = this.transform;
+                tempRoomObj.name = "Room_"+currentCol+","+currentRow;
             
-            //parent that room object and name it
-           tempRoomObj.transform.parent = this.transform;
-           tempRoomObj.name = "Room_"+currentCol+","+currentRow;
-            
-            //give the room the room component
-           Room tempRoom = tempRoomObj.GetComponent<Room>();
-            //add that room reference to the Room array
-           grid[currentCol,currentRow] = tempRoom;
+                //give the room the room component
+                Room tempRoom = tempRoomObj.GetComponent<Room>();
+                //add that room reference to the Room array
+                grid[currentCol,currentRow] = tempRoom;
 
-           //check to see what doors need to be opened on the columns and rows
-           openColumnDoor(tempRoom, currentCol);
-           openRowDoor( tempRoom,  currentRow);
-           
-        }
+                //check to see what doors need to be opened on the columns and rows
+                openColumnDoor(tempRoom, currentCol);
+                openRowDoor( tempRoom,  currentRow);
+                //stores the room in a list to reference at any time
+                FindObjectOfType<Level>().storeRooms(tempRoom);
+            }
+            //otherwise, make the room a player spawn
+            else
+            {
+                //create the room object                 
+                GameObject tempRoomObj = Instantiate (gridPrefabs[0],  newPosition, Quaternion.identity) as GameObject;
+                //parent that room object and name it
+                tempRoomObj.transform.parent = this.transform;
+                tempRoomObj.name = "Room_"+currentCol+","+currentRow;
+            
+                //give the room the room component
+                Room tempRoom = tempRoomObj.GetComponent<Room>();
+                //add that room reference to the Room array
+                grid[currentCol,currentRow] = tempRoom;
+
+                //check to see what doors need to be opened on the columns and rows
+                openColumnDoor(tempRoom, currentCol);
+                openRowDoor( tempRoom,  currentRow);
+                //stores the room in a list to reference at any time
+                FindObjectOfType<Level>().storeRooms(tempRoom);
+                ifThereIsOnePlayerSpawn = true;
+            }
+        } 
      }
     
-    FindObjectOfType<GameManager>().randomSpawn();
+    //spawns the ai and spawns the player
+    FindObjectOfType<GameManager>().randomAiSpawn();
+    FindObjectOfType<GameManager>().randomPlayerSpawn();
     }
 
     public void openColumnDoor(Room tempRoom, int currentCol)
@@ -150,4 +183,13 @@ public class MapGenerator : MonoBehaviour
         }          
     }
 
+    //check for the key input
+   public void ProcessInputs()
+   {
+    if (Input.GetKey(makeMapKey))
+    {
+        pickMapSeedGen();
+        GenerateMap();
+    }
+   }
 }

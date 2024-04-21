@@ -118,13 +118,14 @@ GameObject:
   - component: {fileID: 1233828997764313786}
   - component: {fileID: 129472816572464011}
   - component: {fileID: 6713861641485025322}
+  - component: {fileID: 819624404120523272}
   - component: {fileID: 4437545117667554655}
   - component: {fileID: 4839539698813493416}
   - component: {fileID: 5571649168843602116}
   - component: {fileID: 4120747056753181637}
   - component: {fileID: 5856159502467552062}
-  - component: {fileID: 819624404120523272}
   - component: {fileID: 7779413152258767848}
+  - component: {fileID: -5839921082664576538}
   m_Layer: 0
   m_Name: chaser
   m_TagString: Untagged
@@ -248,6 +249,26 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.7887652
   m_Center: {x: 0.0078087747, y: 0.75, z: 0}
+--- !u!114 &819624404120523272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199940054693488458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b093b4d292aaae49a3a4c74d765b3a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fov: 30
+  maxDistance: 15
+  lineRend: {fileID: 7779413152258767848}
+  thetarget: {fileID: 0}
+  lineRendBool: 0
+  isInFOV: 0
+  printRayResult: 0
+  printFailedRayResult: 0
 --- !u!114 &4437545117667554655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,26 +349,6 @@ MonoBehaviour:
   startDelay: 0
   endDelay: 0
   soundLogBool: 0
---- !u!114 &819624404120523272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199940054693488458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b093b4d292aaae49a3a4c74d765b3a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fov: 30
-  maxDistance: 15
-  lineRend: {fileID: 7779413152258767848}
-  thetarget: {fileID: 0}
-  lineRendBool: 0
-  isInFOV: 0
-  printRayResult: 0
-  printFailedRayResult: 0
 --- !u!120 &7779413152258767848
 LineRenderer:
   serializedVersion: 2
@@ -452,3 +453,15 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &-5839921082664576538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199940054693488458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 351417a6ad550a14b95c2cdf2a701f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -58,7 +58,7 @@ MonoBehaviour:
   guardDistance: 10
   fleeDistance: 15
   distanceMultiplier: 1.2
-  waypointStopDistance: 15
+  waypointStopDistance: 5
   waypoints: []
   resetPatrolBool: 1
   sprintBool: 0
