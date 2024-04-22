@@ -41,7 +41,7 @@ public class Health : MonoBehaviour
         }
         //subtract the amount from health and print it
         currentHealth = currentHealth - amount;
-        //Debug.Log(source.name + " dealt " + amount + " damage to " + gameObject.name);
+        Debug.Log(source.name + " dealt " + amount + " damage to " + gameObject.name);
         //After losing health, check if the pawn is now equal to or less than 0 hp
         if(currentHealth <= 0)
         {
@@ -119,5 +119,7 @@ public class Health : MonoBehaviour
     public void Die(Pawn source)
     {
         Destroy(gameObject);
+        Controller pawnController = source.pawnController;
+        pawnController.addToScore(pawn.theScoreWorthAmount);
     }
 }

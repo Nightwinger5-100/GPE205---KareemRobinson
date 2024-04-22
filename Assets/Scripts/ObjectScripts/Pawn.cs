@@ -36,6 +36,12 @@ public abstract class Pawn : MonoBehaviour
     //the time the projectile will exist
     public float lifeTime;
 
+    public Controller pawnController;
+
+    public int theScoreWorthAmount = 50;
+
+    public int Lives = 0;
+
     // Start is called before the first frame update
     public virtual void Start()
     {

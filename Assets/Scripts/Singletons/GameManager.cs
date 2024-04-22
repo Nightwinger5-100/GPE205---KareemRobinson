@@ -33,18 +33,6 @@ public class GameManager : MonoBehaviour
 
     public GameObject runnerAiPrefab;
     
-    //player spawn point
-    public Transform playerSpawnTransform;
-    
-    //enemy spawn points
-    public Transform chaserAiSpawn;
-
-    public Transform guarderAiSpawn;
-
-    public Transform patrollerAiSpawn;
-
-    public Transform runnerAiSpawn;
-
     //player list
     public List<PlayerController> players;
 
@@ -57,13 +45,32 @@ public class GameManager : MonoBehaviour
     //current amount of power ups that exist
     public int currentAmountOfPowerups;
 
+    public int defaultNumberOfLives = 3;
+
+    //the game states
+    public GameObject TitleScreenStateObject;
+    public GameObject MainMenuStateObject;
+    public GameObject OptionsScreenStateObject;
+    public GameObject CreditsScreenStateObject;
+    public GameObject GameplayStateObject;
+    public GameObject GameOverScreenStateObject;
+
     List<PawnSpawnPoint> storedPawnSpawns = new List<PawnSpawnPoint>();
 
     List<PlayerSpawnPoint> storedPlayerSpawns = new List<PlayerSpawnPoint>();
 
+    // Start is called before the first frame update
+    private void Start()
+    {
+        //Spawn the player
+        //SpawnPlayer();
+        ActivateTitleScreen();
+    }
+
+    //Spawns the player at the spawn with their controller
     public void SpawnPlayer(GameObject spawnPoint)
     {
-
+        
         // Spawn the Player Controller at (0,0,0) with no rotation
         GameObject newPlayerObj = Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 
@@ -74,10 +81,14 @@ public class GameManager : MonoBehaviour
         Controller newController = newPlayerObj.GetComponent<Controller>();
         Pawn newPawn = newPawnObj.GetComponent<Pawn>();
 
+        newPawn.pawnController = newController;
+        newPawn.Lives = defaultNumberOfLives;
+
         //Connect
         newController.pawn = newPawn;
     }
-
+    
+    //Spawns the various ai at the spawn with their controller
     public void SpawnChaserAi(GameObject spawnPoint)
     {
         // Spawn the Player Controller at (0,0,0) with no rotation
@@ -99,6 +110,7 @@ public class GameManager : MonoBehaviour
         // Get the Player Controller and Pawn components
         Controller newController = aiObj.GetComponent<Controller>();
         Pawn newPawn = newPawnObj.GetComponent<Pawn>();
+        newPawn.pawnController = newController;
 
         //Connect
         newController.pawn = newPawn;
@@ -125,6 +137,7 @@ public class GameManager : MonoBehaviour
         // Get the Player Controller and Pawn components
         Controller newController = aiObj.GetComponent<Controller>();
         Pawn newPawn = newPawnObj.GetComponent<Pawn>();
+        newPawn.pawnController = newController;
 
         //Connect
         newController.pawn = newPawn;
@@ -151,6 +164,7 @@ public class GameManager : MonoBehaviour
         // Get the Player Controller and Pawn components
         Controller newController = aiObj.GetComponent<Controller>();
         Pawn newPawn = newPawnObj.GetComponent<Pawn>();
+        newPawn.pawnController = newController;
 
         //Connect
         newController.pawn = newPawn;
@@ -177,6 +191,7 @@ public class GameManager : MonoBehaviour
         // Get the Player Controller and Pawn components
         Controller newController = aiObj.GetComponent<Controller>();
         Pawn newPawn = newPawnObj.GetComponent<Pawn>();
+        newPawn.pawnController = newController;
 
         //Connect
         newController.pawn = newPawn;
@@ -202,7 +217,6 @@ public class GameManager : MonoBehaviour
     public void randomAiSpawn()
     {
         PawnSpawnPoint[] pawnSpawns = FindObjectsOfType<PawnSpawnPoint>();
-
         //for each spawn point spawn, pick a random ai type, then spawn it.
         for (int spawner = 0; spawner < pawnSpawns.Length-1; spawner++)
         {
@@ -257,11 +271,67 @@ public class GameManager : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
-    private void Start()
+    //The functions for deactiving all the screens and enabling the screen of the function
+    public void ActivateTitleScreen()
     {
-        //Spawn the player
-        //SpawnPlayer();
+        // Deactivate all states
+        DeactivateAllStates();
+        // Activate the title screen
+        TitleScreenStateObject.SetActive(true);
     }
+
+    public void ActivateMainMenu()
+    {
+        // Deactivate all states
+        DeactivateAllStates();
+        // Activate the main menu screen
+        MainMenuStateObject.SetActive(true);
+    }
+
+    public void ActivateOptions()
+    {
+        // Deactivate all states
+        DeactivateAllStates();
+        // Activate the options screen
+        OptionsScreenStateObject.SetActive(true);
+    }
+
+    public void ActivateCredits()
+    {
+        // Deactivate all states
+        DeactivateAllStates();
+        // Activate the credits screen
+        CreditsScreenStateObject.SetActive(true);
+    }
+
+    public void ActivateGameplay()
+    {
+        // Deactivate all states
+        DeactivateAllStates();
+        // Activate the gameplay screen
+        GameplayStateObject.SetActive(true);
+    }
+
+    public void ActivateGameOver()
+    {
+        // Deactivate all states
+        DeactivateAllStates();
+        // Activate the gameover screen
+        GameOverScreenStateObject.SetActive(true);
+    }
+
+    //Disables all the screeens
+    private void DeactivateAllStates()
+    {
+        // Deactivate all Game States
+        TitleScreenStateObject.SetActive(false);
+        MainMenuStateObject.SetActive(false);
+        OptionsScreenStateObject.SetActive(false);
+        CreditsScreenStateObject.SetActive(false);
+        GameplayStateObject.SetActive(false);
+        GameOverScreenStateObject.SetActive(false);
+    }
+
+
 
 }

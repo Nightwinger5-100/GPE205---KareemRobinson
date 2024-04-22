@@ -232,7 +232,7 @@ public class AiController : Controller
         //check if they're within the distance to start the state
         if (pawn != null)
         {
-                            if (canChase)
+                    if (canChase)
                 {
                     if (IsDistanceLessThan(target, chaseDistance))
                     {
@@ -296,7 +296,6 @@ public class AiController : Controller
         currentState = newState;
         // Save the time when we changed states
         lastStateChangeTime = Time.time;
-
     }
 
     //check the distance between the target and the ai

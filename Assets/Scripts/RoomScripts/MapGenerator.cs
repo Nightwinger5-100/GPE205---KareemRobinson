@@ -31,14 +31,17 @@ public class MapGenerator : MonoBehaviour
     //check to see if at least one player room has spawned
     private bool ifThereIsOnePlayerSpawn;
     
+    //checks if theres a map
+    private bool isThereAMap;
+
     //the col and rows
     private Room[,] grid;
 
     // Start is called before the first frame update
     public void Start()
     {
-        pickMapSeedGen();
-        GenerateMap();
+        //pickMapSeedGen();
+        //GenerateMap();
     }
 
     // Update is called once per frame
@@ -60,7 +63,6 @@ public class MapGenerator : MonoBehaviour
         }
         else if (mapSeed > 0)
         {
-            
             UnityEngine.Random.InitState(mapSeed);
         }
         Debug.Log("The map seed is " + mapSeed);
@@ -186,8 +188,9 @@ public class MapGenerator : MonoBehaviour
     //check for the key input
    public void ProcessInputs()
    {
-    if (Input.GetKey(makeMapKey))
+    if (Input.GetKey(makeMapKey) && !isThereAMap)
     {
+        isThereAMap = true;
         pickMapSeedGen();
         GenerateMap();
     }
