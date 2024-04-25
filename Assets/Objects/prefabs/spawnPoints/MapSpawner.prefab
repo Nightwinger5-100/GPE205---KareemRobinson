@@ -118,8 +118,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b66b04498aba3498bf801e2f1d236f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  makeMapKey: 109
   gridPrefabs:
   - {fileID: 121816, guid: 41d4243be8ad3a5409422171976de7ff, type: 3}
+  - {fileID: 121816, guid: a3980eb1a7a32b14b9063bbd8b52622d, type: 3}
+  - {fileID: 121816, guid: 86340fb2cce34f845985ef53a33ac16d, type: 3}
+  - {fileID: 121816, guid: 78427aad82efa6e4d857ed0dacebf679, type: 3}
+  - {fileID: 121816, guid: a8cb867c9b7ba9d44a717519fa5f6b0c, type: 3}
   rows: 4
   cols: 4
   roomWidth: 50

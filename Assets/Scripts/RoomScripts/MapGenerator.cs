@@ -40,8 +40,7 @@ public class MapGenerator : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        //pickMapSeedGen();
-        //GenerateMap();
+    //createMapWithPlayerFromSeed();
     }
 
     // Update is called once per frame
@@ -191,8 +190,15 @@ public class MapGenerator : MonoBehaviour
     if (Input.GetKey(makeMapKey) && !isThereAMap)
     {
         isThereAMap = true;
-        pickMapSeedGen();
-        GenerateMap();
+        createMapWithPlayerFromSeed();
     }
+   }
+
+    //creates a map for ai and the player to spawn
+   public void createMapWithPlayerFromSeed()
+   {
+        isThereAMap = true;
+        pickMapSeedGen();
+        GenerateMap();    
    }
 }

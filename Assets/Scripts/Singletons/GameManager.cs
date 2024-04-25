@@ -32,12 +32,6 @@ public class GameManager : MonoBehaviour
     public GameObject patrollerAiPrefab;
 
     public GameObject runnerAiPrefab;
-    
-    //player list
-    public List<PlayerController> players;
-
-    //ai list
-    public List<AiController> ai;
 
     //max amount of powerups that can exist
     public int maxAmountOfPowerups;
@@ -55,9 +49,28 @@ public class GameManager : MonoBehaviour
     public GameObject GameplayStateObject;
     public GameObject GameOverScreenStateObject;
 
+    //player list
+    public List<PlayerController> players;
+
+    //ai list
+    public List<AiController> ai;
+
     List<PawnSpawnPoint> storedPawnSpawns = new List<PawnSpawnPoint>();
 
     List<PlayerSpawnPoint> storedPlayerSpawns = new List<PlayerSpawnPoint>();
+
+    public KeyCode titleKey;
+
+    public KeyCode mainMenuKey;
+
+    public KeyCode optionsKey;
+
+    public KeyCode creditsKey;
+
+    public KeyCode gameplayKey;
+
+    public KeyCode gameoverKey;
+
 
     // Start is called before the first frame update
     private void Start()
@@ -65,6 +78,11 @@ public class GameManager : MonoBehaviour
         //Spawn the player
         //SpawnPlayer();
         ActivateTitleScreen();
+    }
+
+    private void Update()
+    {
+        ProcessInputs();
     }
 
     //Spawns the player at the spawn with their controller
@@ -310,6 +328,7 @@ public class GameManager : MonoBehaviour
         DeactivateAllStates();
         // Activate the gameplay screen
         GameplayStateObject.SetActive(true);
+        FindObjectOfType<MapGenerator>().createMapWithPlayerFromSeed();
     }
 
     public void ActivateGameOver()
@@ -333,5 +352,31 @@ public class GameManager : MonoBehaviour
     }
 
 
-
+    public void ProcessInputs()
+   {
+    if (Input.GetKey(titleKey) && !TitleScreenStateObject.activeSelf)
+    {
+        ActivateTitleScreen();
+    }
+    if (Input.GetKey(mainMenuKey) & !MainMenuStateObject.activeSelf)
+    {
+        ActivateMainMenu();
+    }
+        if (Input.GetKey(optionsKey) && !OptionsScreenStateObject.activeSelf)
+    {
+        ActivateOptions();
+    }
+    if (Input.GetKey(creditsKey) & !CreditsScreenStateObject.activeSelf)
+    {
+        ActivateCredits();
+    }
+        if (Input.GetKey(gameplayKey) && !GameplayStateObject.activeSelf)
+    {
+        ActivateGameplay();
+    }
+    if (Input.GetKey(gameoverKey) & !GameOverScreenStateObject.activeSelf)
+    {
+        ActivateGameOver();
+    }
+   }
 }
