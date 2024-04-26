@@ -23,10 +23,10 @@ public class MapGenerator : MonoBehaviour
     public int mapSeed;
     
     //the map that'll be generated based on time
-    public bool isTimeBasedSeedGeneration;
+    public bool randomSeedGeneration = true;
 
     //the map that'll be generated based on the year,month,day
-    public bool isMapOfTheDay;
+    public bool isMapOfTheDay = false;
 
     //check to see if at least one player room has spawned
     private bool ifThereIsOnePlayerSpawn;
@@ -56,14 +56,16 @@ public class MapGenerator : MonoBehaviour
         {
             mapSeed = DateToInt (DateTime.Now.Date);           
         }
-        else if (isTimeBasedSeedGeneration)
+        else if (randomSeedGeneration)
         {
-            UnityEngine.Random.InitState(DateToInt(DateTime.Now));
+            mapSeed = UnityEngine.Random.Range(0, 100000);
+            UnityEngine.Random.InitState(mapSeed);
         }
-        else if (mapSeed > 0)
+        else
         {
             UnityEngine.Random.InitState(mapSeed);
         }
+
         Debug.Log("The map seed is " + mapSeed);
     }
 
