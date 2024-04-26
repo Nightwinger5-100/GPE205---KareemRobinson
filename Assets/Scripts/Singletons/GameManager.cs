@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -296,6 +297,7 @@ public class GameManager : MonoBehaviour
         DeactivateAllStates();
         // Activate the title screen
         TitleScreenStateObject.SetActive(true);
+        
     }
 
     public void ActivateMainMenu()
