@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 7676041355461747387}
   - component: {fileID: 254201474795678383}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: scoreUiText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,7 +136,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -378, y: 191}
+  m_AnchoredPosition: {x: -378, y: 178}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7676041355461747387
@@ -419,6 +419,9 @@ PrefabInstance:
       addedObject: {fileID: 6743923892865932333}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 827171f16846886409ef2e74717875b5, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 7516453304178953736}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 827171f16846886409ef2e74717875b5, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 7216482018493065172}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 827171f16846886409ef2e74717875b5, type: 3}
       insertIndex: -1
@@ -428,13 +431,10 @@ PrefabInstance:
       addedObject: {fileID: 307290359430809089}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 827171f16846886409ef2e74717875b5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7516453304178953736}
+      addedObject: {fileID: 5759418276017217615}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 827171f16846886409ef2e74717875b5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7235911725883006208}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 827171f16846886409ef2e74717875b5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5759418276017217615}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 827171f16846886409ef2e74717875b5, type: 3}
       insertIndex: -1
       addedObject: {fileID: -262182344001156216}
@@ -497,6 +497,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &7516453304178953736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4125476287880866599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18aea979fe78d3d4f9caca353e3d0d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+  maxHealth: 1
 --- !u!114 &7216482018493065172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,7 +561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firepointTransform: {fileID: 1829752786432184280}
---- !u!114 &7516453304178953736
+--- !u!114 &5759418276017217615
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -556,11 +570,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4125476287880866599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18aea979fe78d3d4f9caca353e3d0d4c, type: 3}
+  m_Script: {fileID: 11500000, guid: 351417a6ad550a14b95c2cdf2a701f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
-  maxHealth: 1000
 --- !u!114 &7235911725883006208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,18 +592,6 @@ MonoBehaviour:
   startDelay: 0
   endDelay: 1
   soundLogBool: 0
---- !u!114 &5759418276017217615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4125476287880866599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 351417a6ad550a14b95c2cdf2a701f36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &-262182344001156216
 AudioSource:
   m_ObjectHideFlags: 0
@@ -603,7 +603,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 7446147290965452832, guid: 7d82d313ff8b71142a1f90d53f99f75b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 3b567982ee6ede34fbc43e1f34f53a5a, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.541
   m_Pitch: 1
   Loop: 0

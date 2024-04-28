@@ -155,6 +155,7 @@ public class AiController : Controller
     {   
         //if the gameManager exists
         if (GameManager.instance != null)
+
         {   //if the player list exists
             if (GameManager.instance.players != null)
             {   
@@ -478,7 +479,7 @@ public class AiController : Controller
         //make the first tank the closest
         Pawn closestTank = allTanks[0];
         
-        if (closestTank = this.pawn)
+        if (closestTank == this.pawn && gameObject != null)
         {
             closestTank = allTanks[1];
         }

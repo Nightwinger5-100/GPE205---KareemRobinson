@@ -41,7 +41,7 @@ public class Health : MonoBehaviour
         }
         //subtract the amount from health and print it
         currentHealth = currentHealth - amount;
-        Debug.Log(source.name + " dealt " + amount + " damage to " + gameObject.name);
+        //Debug.Log(source.name + " dealt " + amount + " damage to " + gameObject.name);
         //After losing health, check if the pawn is now equal to or less than 0 hp
         if(currentHealth <= 0)
         {
@@ -62,7 +62,7 @@ public class Health : MonoBehaviour
         if(currentHealth == maxHealth || currentHealth > maxHealth)
         {
             currentHealth = maxHealth;
-            print("Your health is already full!");
+            //Debug.Log("Your health is already full!");
             return;
         }
         //add the amount to health and print it
@@ -109,7 +109,7 @@ public class Health : MonoBehaviour
             }
             else
             {
-                Debug.Log("done");
+                //Debug.Log("done");
                 nextTimeEvent = 0;
             }
         }
@@ -118,8 +118,23 @@ public class Health : MonoBehaviour
     //check if their dead because their hp is less than 0
     public void Die(Pawn source)
     {
+
+        checkIfPawnIsPlayer();
         Destroy(gameObject);
         Controller pawnController = source.pawnController;
         pawnController.addToScore(source.theScoreWorthAmount);
+    }
+
+    private void checkIfPawnIsPlayer()
+    {
+            List<PlayerController> playerList =  GameManager.instance.players;
+        for (int playerlistNum = 0; playerlistNum < playerList.Count; playerlistNum++)
+        {
+            if (gameObject == playerList[playerlistNum].pawn.gameObject)
+            {
+                GameManager.instance.RespawnPlayer(playerList[playerlistNum]);
+                
+            }
+        }
     }
 }

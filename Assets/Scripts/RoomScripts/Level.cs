@@ -7,7 +7,7 @@ using UnityEngine;
 public class Level : MonoBehaviour
 {
     //the rooms generated
-    List<Room> allRooms = new List<Room>();
+    public List<Room> allRooms = new List<Room>();
 
     //the key to print all current rooms
     public KeyCode printRoomsKey;

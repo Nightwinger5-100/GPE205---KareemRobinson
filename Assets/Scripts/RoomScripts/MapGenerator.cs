@@ -139,10 +139,13 @@ public class MapGenerator : MonoBehaviour
             }
         } 
      }
-    
+   
     //spawns the ai and spawns the player
-    FindObjectOfType<GameManager>().randomAiSpawn();
-    FindObjectOfType<GameManager>().randomPlayerSpawn();
+    GameManager.instance.randomAiSpawn();
+    GameManager.instance.createPlayer();
+    //Store the spawned pickups
+    GameManager.instance.storePickUps();
+
     }
 
     public void openColumnDoor(Room tempRoom, int currentCol)

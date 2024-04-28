@@ -21,6 +21,8 @@ public class PlayerController : Controller
     //isSprintingBool
     public bool isSprintingBool;
 
+    public int Lives = 0;
+
     // Start is called before the first frame update
     public override void Start()
     {
