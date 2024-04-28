@@ -120,6 +120,6 @@ public class Health : MonoBehaviour
     {
         Destroy(gameObject);
         Controller pawnController = source.pawnController;
-        pawnController.addToScore(pawn.theScoreWorthAmount);
+        pawnController.addToScore(source.theScoreWorthAmount);
     }
 }

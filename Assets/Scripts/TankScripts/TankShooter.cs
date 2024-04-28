@@ -23,6 +23,14 @@ public class TankShooter : Shooter
         // Instantiate bullet
         GameObject newBullet = Instantiate(bulletPrefab, firepointTransform.position, firepointTransform.rotation) as GameObject;
 
+        AudioSource bulletSFX = GetComponent<AudioSource>();
+
+        //Playsound
+        if (bulletSFX != null)
+        {
+            bulletSFX.PlayOneShot(bulletSFX.clip);
+        }
+
         // Get the DamageOnHit component
         DamageOnHit doh = newBullet.GetComponent<DamageOnHit>();
         // If it has one 
