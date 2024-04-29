@@ -116,11 +116,10 @@ public class Health : MonoBehaviour
     }
 
     //check if their dead because their hp is less than 0
-    public void Die(Pawn source)
+    public void Die(Pawn objectThatDidDmg)
     {
-        Debug.Log(source);
         checkIfGameObjectIsPlayer();
-        checkIfPawnIsAPlayer(source);
+        checkIfPawnIsAPlayer(objectThatDidDmg);
         Destroy(gameObject);
 
     }
@@ -138,16 +137,16 @@ public class Health : MonoBehaviour
         }
     }
 
-    private void checkIfPawnIsAPlayer(Pawn source)
+    private void checkIfPawnIsAPlayer(Pawn objectThatDidDmg)
     {
             List<PlayerController> playerList =  GameManager.instance.players;
         for (int playerlistNum = 0; playerlistNum < playerList.Count; playerlistNum++)
         {
-            if (source.gameObject == playerList[playerlistNum].pawn.gameObject)
+            if (objectThatDidDmg.gameObject == playerList[playerlistNum].pawn.gameObject)
             {
                 //Debug.Log("dwqfevdf");
-               Controller pawnController = source.pawnController;
-                pawnController.addToScore(source.theScoreWorthAmount);
+               PlayerController playerController = playerList[playerlistNum];
+                playerController.addToScore(objectThatDidDmg.theScoreWorthAmount);
             }
         }
     }

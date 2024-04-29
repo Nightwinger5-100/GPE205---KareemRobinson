@@ -12,16 +12,16 @@ public class ScorePowerup : Powerup
 
     public override void Apply(PowerUpManager target)
     {
-        Pawn pawn = target.GetComponent<Pawn>();
-        Controller pawnController = pawn.pawnController;
+        TankPawn pawn = target.GetComponent<TankPawn>();
+        PlayerController pawnController = pawn.GetComponent<PlayerController>();
         pawnController.addToScore(scoreToAdd);
         
     }
 
     public override void Remove(PowerUpManager target)
     {
-        Pawn pawn = target.GetComponent<Pawn>();
-        Controller pawnController = pawn.pawnController;
-        pawnController.removeFromScore(scoreToRemove);
+        TankPawn pawn = target.GetComponent<TankPawn>();
+        PlayerController pawnController = pawn.GetComponent<PlayerController>();
+        pawnController.addToScore(scoreToRemove);
     }
 }

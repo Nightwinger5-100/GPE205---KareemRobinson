@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : Controller
 {
@@ -11,6 +13,9 @@ public class PlayerController : Controller
     public KeyCode rotateClockwiseKey;
 
     public KeyCode rotateCounterClockwiseKey;
+
+    //adds to score key
+    public KeyCode uitest;
 
     //shoot projectile key
     public KeyCode shootKey;
@@ -23,6 +28,10 @@ public class PlayerController : Controller
 
     public int Lives = 0;
 
+    public Canvas playerCanvas;
+
+    public TextMeshPro scoreText;
+
     // Start is called before the first frame update
     public override void Start()
     {
@@ -34,6 +43,7 @@ public class PlayerController : Controller
         {
             //add this player to the list
             GameManager.instance.players.Add(this);
+            //updateCanvas();
         }
     }
     
@@ -66,6 +76,31 @@ public class PlayerController : Controller
         base.Update();
     }
     
+    public void updateCanvas()
+    {
+        Canvas playerCanvas = FindObjectOfType<Canvas>();
+        TextMeshPro playerCanvasText = playerCanvas.GetComponent<TextMeshPro>();
+        playerCanvasText.text = "Score: " + score + "\n" + "Lives: " + Lives;
+        playerCanvasText.text = playerCanvasText.text.Replace("\\n", "\n");
+    }
+
+    public void addToScore(float scoreAmount)
+    {
+        Canvas playerCanvas = FindObjectOfType<Canvas>();
+        score += scoreAmount;
+        TextMeshPro playerCanvasText = playerCanvas.GetComponent<TextMeshPro>();
+        playerCanvasText.text = "Score: " + score + "\n" + "Lives: " + Lives;
+        playerCanvasText.text = playerCanvasText.text.Replace("\\n", "\n");
+    }
+
+    public void removeFromScore(float scoreAmount)
+    {
+        score -= scoreAmount;
+        TextMeshPro playerCanvasText = playerCanvas.GetComponent<TextMeshPro>();
+        playerCanvasText.text = "Score: " + score + "\n" + "Lives: " + Lives;
+        playerCanvasText.text = playerCanvasText.text.Replace("\\n", "\n");
+    }
+
     //checks to see if the movement or rotation keys are down
     //if they're down then run the function for that action
     public override void ProcessInputs()
@@ -93,6 +128,10 @@ public class PlayerController : Controller
         if (Input.GetKey(shootKey))
         {
             pawn.Shoot();
+        }
+        if(Input.GetKey(uitest))
+        {
+            addToScore(299);
         }
     }
 

@@ -106,10 +106,14 @@ public class GameManager : MonoBehaviour
         newPawn.pawnController = newController;
 
         //set the lives on the controller
-        newPlayerObj.GetComponent<PlayerController>().Lives = defaultNumberOfLives;
+        PlayerController newPlayerController = newPlayerObj.GetComponent<PlayerController>();
+        newPlayerController.Lives = defaultNumberOfLives;
 
         //Connect the pawn to the controller
         newController.pawn = newPawn;
+         //update their ui
+        newPlayerController.updateCanvas();
+
     }
     
     //Updates lives and respawns the player is applicable
@@ -122,6 +126,7 @@ public class GameManager : MonoBehaviour
             playerController.Lives -= 1;
             return false;
         }
+
         //if that player has ran out of lives...
         else
         {
@@ -144,7 +149,6 @@ public class GameManager : MonoBehaviour
                 //the game is over
                 ActivateGameOver();
             }
-            
             //it's gameover for that player
             return true;
         }
@@ -171,6 +175,9 @@ public class GameManager : MonoBehaviour
 
             //Connect
             newController.pawn = newPawn;
+            //update ui
+            playerController.updateCanvas();
+
         }
         else
         {
@@ -442,7 +449,6 @@ public class GameManager : MonoBehaviour
         //Delete all the gameObjects
         clearTheGame();
 
-        
     }
 
     //Disables all the screeens
