@@ -535,7 +535,6 @@ MonoBehaviour:
   lifeTime: 5
   pawnController: {fileID: 0}
   theScoreWorthAmount: 50
-  Lives: 0
 --- !u!114 &5757884812751048001
 MonoBehaviour:
   m_ObjectHideFlags: 0
