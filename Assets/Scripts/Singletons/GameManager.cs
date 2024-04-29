@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class GameManager : MonoBehaviour
 {
-
+    public bool muliplayer;
     
     //as a static so this is the one that can be accessed anywhere
     public static GameManager instance;
@@ -64,20 +65,17 @@ public class GameManager : MonoBehaviour
 
     List<PlayerSpawnPoint> storedPlayerSpawns = new List<PlayerSpawnPoint>();
 
-    private int playerSpawn = -1;
+    private int playerSpawn = 0;
 
+    //music/sounds
+    public AudioSource bgMusic;
+    public AudioSource sfxAudioSource;
+
+    public AudioClip gameOverSFX;
+
+
+    //hotkeys for debugging
     public KeyCode titleKey;
-
-    public KeyCode mainMenuKey;
-
-    public KeyCode optionsKey;
-
-    public KeyCode creditsKey;
-
-    public KeyCode gameplayKey;
-
-    public KeyCode gameoverKey;
-
 
     // Start is called before the first frame update
     private void Start()
@@ -89,7 +87,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        ProcessInputs();
+        
     }
 
     //Spawns the player at the spawn with their controller
@@ -121,7 +119,7 @@ public class GameManager : MonoBehaviour
         if (playerController.Lives > 0)
         {
             //just remove a life
-            playerController.Lives =- 1;
+            playerController.Lives -= 1;
             return false;
         }
         //if that player has ran out of lives...
@@ -133,7 +131,9 @@ public class GameManager : MonoBehaviour
                 if (playerController == players[playerlistNum])
                 {
                     //remove that player from the list of players
+                    Destroy(playerController.gameObject);
                     players.Remove(players[playerlistNum]);
+                    
                 }
             }
 
@@ -355,6 +355,7 @@ public class GameManager : MonoBehaviour
     
     public void createPlayer()
     {
+        
         SpawnPlayer(randomPlayerSpawn());
     }
 
@@ -427,7 +428,12 @@ public class GameManager : MonoBehaviour
         
         // Activate the gameover screen
         GameOverScreenStateObject.SetActive(true);
+        
+        //play gameover sound and stop music
+        sfxAudioSource.PlayOneShot(gameOverSFX);
+        bgMusic.Stop();
 
+        //print all the scores
         for (int plr = players.Count-1 ; plr >= 0; plr--)
         {
             Debug.Log(players[plr].score);
@@ -464,7 +470,11 @@ public class GameManager : MonoBehaviour
         //destroy each ai pawn and controller
         for (int aiNum = ai.Count-1;  aiNum >= 0; aiNum-- )
         {
-            Destroy(ai[aiNum].pawn.gameObject);
+            if (ai[aiNum].pawn.gameObject != null)
+            {
+                Destroy(ai[aiNum].pawn.gameObject);
+            }
+            
             Destroy(ai[aiNum].gameObject);
         }
         //destroy each ai spawnpoint
@@ -510,32 +520,4 @@ public class GameManager : MonoBehaviour
         }
         players.Clear();
     }
-
-    public void ProcessInputs()
-   {
-    if (Input.GetKey(titleKey) && !TitleScreenStateObject.activeSelf)
-    {
-        ActivateTitleScreen();
-    }
-    if (Input.GetKey(mainMenuKey) & !MainMenuStateObject.activeSelf)
-    {
-        ActivateMainMenu();
-    }
-        if (Input.GetKey(optionsKey) && !OptionsScreenStateObject.activeSelf)
-    {
-        ActivateOptions();
-    }
-    if (Input.GetKey(creditsKey) & !CreditsScreenStateObject.activeSelf)
-    {
-        ActivateCredits();
-    }
-        if (Input.GetKey(gameplayKey) && !GameplayStateObject.activeSelf)
-    {
-        ActivateGameplay();
-    }
-    if (Input.GetKey(gameoverKey) & !GameOverScreenStateObject.activeSelf)
-    {
-        ActivateGameOver();
-    }
-   }
 }

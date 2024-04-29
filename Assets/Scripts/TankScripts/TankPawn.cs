@@ -29,7 +29,9 @@ public class TankPawn : Pawn
     //get the object to move and move it forward based on the moveSpeed
     public override void MoveForward(bool sprintBool)
     {
-        if(sprintBool == true)
+    if (gameObject != null)
+    {
+            if(sprintBool == true)
         {
         mover.Move(transform.forward, moveSpeed*sprintSpeedIncrease);
         }
@@ -37,6 +39,8 @@ public class TankPawn : Pawn
         {
         mover.Move(transform.forward, moveSpeed);
         }
+    }
+
         
     }
 

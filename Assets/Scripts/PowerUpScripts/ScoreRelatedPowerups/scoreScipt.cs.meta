@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 18aea979fe78d3d4f9caca353e3d0d4c
+guid: e00ddf2fd0ee40b4c9b299bb208836b9
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - sfxSource: {instanceID: 0}
-  - deathsound: {fileID: 8300000, guid: fdda9bc97aeadc94b81eae18f2820f1e, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -126,3 +126,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageDone: 5
   owner: {fileID: 0}
+  audioSource: {fileID: 0}
+  dohSound: {fileID: 8300000, guid: c7e50f91d6145814fb12453a3a9727ab, type: 3}

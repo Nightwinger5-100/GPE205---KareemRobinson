@@ -118,22 +118,48 @@ public class Health : MonoBehaviour
     //check if their dead because their hp is less than 0
     public void Die(Pawn source)
     {
-
-        checkIfPawnIsPlayer();
+        Debug.Log(source);
+        checkIfGameObjectIsPlayer();
+        checkIfPawnIsAPlayer(source);
         Destroy(gameObject);
-        Controller pawnController = source.pawnController;
-        pawnController.addToScore(source.theScoreWorthAmount);
+
     }
 
-    private void checkIfPawnIsPlayer()
+    private void checkIfGameObjectIsPlayer()
     {
-            List<PlayerController> playerList =  GameManager.instance.players;
+        List<PlayerController> playerList =  GameManager.instance.players;
         for (int playerlistNum = 0; playerlistNum < playerList.Count; playerlistNum++)
         {
             if (gameObject == playerList[playerlistNum].pawn.gameObject)
             {
                 GameManager.instance.RespawnPlayer(playerList[playerlistNum]);
                 
+            }
+        }
+    }
+
+    private void checkIfPawnIsAPlayer(Pawn source)
+    {
+            List<PlayerController> playerList =  GameManager.instance.players;
+        for (int playerlistNum = 0; playerlistNum < playerList.Count; playerlistNum++)
+        {
+            if (source.gameObject == playerList[playerlistNum].pawn.gameObject)
+            {
+                //Debug.Log("dwqfevdf");
+               Controller pawnController = source.pawnController;
+                pawnController.addToScore(source.theScoreWorthAmount);
+            }
+        }
+    }
+
+    private void checkifAi(Pawn source)
+    {
+            List<AiController> aiList =  GameManager.instance.ai;
+        for (int aiListNum = 0; aiListNum < aiList.Count; aiListNum++)
+        {
+            if (gameObject == aiList[aiListNum].pawn.gameObject)
+            {
+                aiList.Remove(aiList[aiListNum]);
             }
         }
     }

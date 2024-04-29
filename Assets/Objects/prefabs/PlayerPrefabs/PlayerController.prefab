@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pawn: {fileID: 0}
   score: 0
+  uitest: 113
   moveForwardKey: 119
   moveBackwardKey: 115
   rotateClockwiseKey: 100
@@ -128,6 +129,7 @@ MonoBehaviour:
   shootKey: 323
   sprintKey: 304
   isSprintingBool: 0
+  Lives: 0
 --- !u!82 &5153491732261320317
 AudioSource:
   m_ObjectHideFlags: 0

@@ -16,10 +16,13 @@ public class OptionsScreenUI : MonoBehaviour
 
     public Slider sfxVolumeSlider;
 
+    public AudioSource sfxAudioSource;
+
+    public AudioClip movedSliderSfx;
+
     public void Start()
     {
     }
-
 
     public void OnMasterVolumeChange ()
     {
@@ -73,6 +76,15 @@ public class OptionsScreenUI : MonoBehaviour
 
         // Set the volume to the new volume setting
         mainAudioMixer.SetFloat("sfxVolume", newVolume);
+    }
+
+    public void OnSliderMoved()
+    {
+        if (!sfxAudioSource.isPlaying)
+        {
+            sfxAudioSource.PlayOneShot(movedSliderSfx);
+        }
+        
     }
 
 }
