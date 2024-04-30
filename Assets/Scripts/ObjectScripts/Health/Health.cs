@@ -120,6 +120,7 @@ public class Health : MonoBehaviour
     {
         checkIfGameObjectIsPlayer();
         checkIfPawnIsAPlayer(objectThatDidDmg);
+        checkifAi(gameObject);
         Destroy(gameObject);
 
     }
@@ -151,12 +152,12 @@ public class Health : MonoBehaviour
         }
     }
 
-    private void checkifAi(Pawn source)
+    private void checkifAi(GameObject attackedObject)
     {
             List<AiController> aiList =  GameManager.instance.ai;
         for (int aiListNum = 0; aiListNum < aiList.Count; aiListNum++)
         {
-            if (gameObject == aiList[aiListNum].pawn.gameObject)
+            if (attackedObject == aiList[aiListNum].pawn.gameObject)
             {
                 aiList.Remove(aiList[aiListNum]);
             }

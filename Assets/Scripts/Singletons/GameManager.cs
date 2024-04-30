@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
     //as a static so this is the one that can be accessed anywhere
     public static GameManager instance;
 
-    // Player Controller Prefab
-    public GameObject playerControllerPrefab;
+    // Player Controller Prefabs
+    public GameObject playerOneControllerPrefab;
+
+    public GameObject playerTwoControllerPrefab;
 
     // Ai Controller prefabs
     public GameObject chaserAiControllerPrefab;
@@ -87,15 +89,41 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        
+        getInputs();
     }
 
     //Spawns the player at the spawn with their controller
-    public void SpawnPlayer(GameObject spawnPoint)
+    public void SpawnPlayerOne(GameObject spawnPoint)
     {
         
         // Spawn the Player Controller at (0,0,0) with no rotation
-        GameObject newPlayerObj = Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+        GameObject newPlayerObj = Instantiate(playerOneControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+
+        // Spawn the pawn and connect it to the controller
+        GameObject newPawnObj = Instantiate(tankPawnPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
+
+        // Get the Player Controller and Pawn components
+        Controller newController = newPlayerObj.GetComponent<Controller>();
+        Pawn newPawn = newPawnObj.GetComponent<Pawn>();
+        newPawn.pawnController = newController;
+
+        //set the lives on the controller
+        PlayerController newPlayerController = newPlayerObj.GetComponent<PlayerController>();
+        newPlayerController.Lives = defaultNumberOfLives;
+
+        //Connect the pawn to the controller
+        newController.pawn = newPawn;
+         //update their ui
+        newPlayerController.updateCanvas();
+
+    }
+    
+        //Spawns the player at the spawn with their controller
+    public void SpawnPlayerTwo(GameObject spawnPoint)
+    {
+        
+        // Spawn the Player Controller at (0,0,0) with no rotation
+        GameObject newPlayerObj = Instantiate(playerTwoControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 
         // Spawn the pawn and connect it to the controller
          GameObject newPawnObj = Instantiate(tankPawnPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation) as GameObject;
@@ -115,7 +143,7 @@ public class GameManager : MonoBehaviour
         newPlayerController.updateCanvas();
 
     }
-    
+
     //Updates lives and respawns the player is applicable
     public bool checkIfGameOver(PlayerController playerController)
     {
@@ -159,7 +187,6 @@ public class GameManager : MonoBehaviour
     public void RespawnPlayer(PlayerController playerController)
     {
         //check 
-        Debug.Log("lets see");
         if (!checkIfGameOver(playerController))
         {
             //get a random Spawnpoint
@@ -177,6 +204,7 @@ public class GameManager : MonoBehaviour
             newController.pawn = newPawn;
             //update ui
             playerController.updateCanvas();
+            multiPlayerMode();
 
         }
         else
@@ -304,7 +332,7 @@ public class GameManager : MonoBehaviour
         //Connect
         newController.pawn = newPawn;
     }
-
+    
     // As soon as this is created before even start()
     private void Awake()
     {
@@ -362,8 +390,18 @@ public class GameManager : MonoBehaviour
     
     public void createPlayer()
     {
+        if (!muliplayer)
+        {
+        //spawn one player
+        SpawnPlayerOne(randomPlayerSpawn());
+        }
+        else
+        {
+        //spawn two players
+        SpawnPlayerOne(randomPlayerSpawn());
+        SpawnPlayerTwo(randomPlayerSpawn());
+        }
         
-        SpawnPlayer(randomPlayerSpawn());
     }
 
     public GameObject randomPlayerSpawn()
@@ -525,5 +563,38 @@ public class GameManager : MonoBehaviour
             Destroy(players[plrControllerNum].gameObject);
         }
         players.Clear();
+    }
+
+    public void multiPlayerMode()
+    {
+        
+        if (muliplayer)
+        {
+            Camera[] camList = FindObjectsOfType<Camera>();
+            Debug.Log(camList.Length);
+            for (int camNum = 0;  camNum < camList.Length; camNum++)
+            {
+                for(int playerNum = 0;  playerNum < players.Count; playerNum++)
+                {
+                    Camera thisPlayersCam = players[playerNum].pawn.transform.GetComponentInChildren<Camera>();
+                    if (camList[camNum] == thisPlayersCam && playerNum == 0)
+                    {
+                        camList[camNum].rect = new Rect(0.0f, 0.5f, 1f, 1f);
+                    }
+                    else if (camList[camNum] == thisPlayersCam && playerNum == 1)
+                    {
+                        camList[camNum].rect = new Rect(0.0f, 0.0f, 1f, 0.5f);
+                    }
+                }
+            }
+        }
+    }
+
+    public void getInputs()
+    {
+        if (Input.GetKey(titleKey))
+        {
+            multiPlayerMode();
+        }
     }
 }

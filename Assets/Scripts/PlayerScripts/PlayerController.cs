@@ -43,7 +43,10 @@ public class PlayerController : Controller
         {
             //add this player to the list
             GameManager.instance.players.Add(this);
+            
             //updateCanvas();
+            //update their camera if they're in multiplayer mode
+            multiplePlayers();
         }
     }
     
@@ -76,6 +79,14 @@ public class PlayerController : Controller
         base.Update();
     }
     
+    public void multiplePlayers()
+    {
+        if (GameManager.instance.muliplayer)
+        {
+            GameManager.instance.multiPlayerMode();
+        }
+    }
+
     public void updateCanvas()
     {
         Canvas playerCanvas = FindObjectOfType<Canvas>();
@@ -86,9 +97,8 @@ public class PlayerController : Controller
 
     public void addToScore(float scoreAmount)
     {
-        Canvas playerCanvas = FindObjectOfType<Canvas>();
         score += scoreAmount;
-        TextMeshPro playerCanvasText = playerCanvas.GetComponent<TextMeshPro>();
+        TextMeshPro playerCanvasText = pawn.transform.Find("Canvas").GetComponent<TextMeshPro>();
         playerCanvasText.text = "Score: " + score + "\n" + "Lives: " + Lives;
         playerCanvasText.text = playerCanvasText.text.Replace("\\n", "\n");
     }

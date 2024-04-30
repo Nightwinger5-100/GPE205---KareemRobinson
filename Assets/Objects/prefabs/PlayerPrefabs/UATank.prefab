@@ -540,7 +540,7 @@ MonoBehaviour:
   damageDone: 25
   lifeTime: 5
   pawnController: {fileID: 0}
-  theScoreWorthAmount: 50
+  theScoreWorthAmount: 200
 --- !u!114 &5757884812751048001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,6 +701,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3606101820300063133}
     m_Modifications:
+    - target: {fileID: 264298958775349417, guid: 13f518e453f5399498cfb7046f4e646b, type: 3}
+      propertyPath: m_NormalizedViewPortRect.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 264298958775349417, guid: 13f518e453f5399498cfb7046f4e646b, type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 264298958775349417, guid: 13f518e453f5399498cfb7046f4e646b, type: 3}
+      propertyPath: m_NormalizedViewPortRect.width
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 264298958775349417, guid: 13f518e453f5399498cfb7046f4e646b, type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3908530791913382663, guid: 13f518e453f5399498cfb7046f4e646b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
