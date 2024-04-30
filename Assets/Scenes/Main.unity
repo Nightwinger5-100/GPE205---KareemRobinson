@@ -2496,7 +2496,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 42, y: 125}
+  m_AnchoredPosition: {x: 42, y: 137.6}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &549534347
@@ -2618,7 +2618,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 41.999996, y: 78.31098}
+  m_AnchoredPosition: {x: 41.999996, y: 90.91099}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &556401162
@@ -4867,7 +4867,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -158, y: -116}
+  m_AnchoredPosition: {x: -158, y: -117.2}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1163719499
@@ -7341,7 +7341,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -158, y: -70.45301}
+  m_AnchoredPosition: {x: -158, y: -71.65301}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1831032509
@@ -7454,7 +7454,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 41.999996, y: 32.04798}
+  m_AnchoredPosition: {x: 41.999996, y: 44.647987}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1848380569
@@ -7744,7 +7744,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 36, y: 170}
+  m_AnchoredPosition: {x: 36, y: 185.1}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1904985955
@@ -8235,7 +8235,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   muliplayer: 0
-  playerControllerPrefab: {fileID: 3188509175213661448, guid: ad1ae815336a0784896f08dc6cf24606, type: 3}
+  playerOneControllerPrefab: {fileID: 3188509175213661448, guid: 2fd9d86837c22bb4da82ffe7bf009ce4, type: 3}
+  playerTwoControllerPrefab: {fileID: 3188509175213661448, guid: ad1ae815336a0784896f08dc6cf24606, type: 3}
   chaserAiControllerPrefab: {fileID: 8506771921263064413, guid: 16ffd1ef7d3da684c8db7dabd1dbeec4, type: 3}
   guarderAiControllerPrefab: {fileID: 6754223308540956557, guid: 31af9c4acbe83cd4ba83dedb9edfee7b, type: 3}
   patrollerAiControllerPrefab: {fileID: 8950155090036442016, guid: cca88867bd110174f82d72805fde64f0, type: 3}
@@ -8299,7 +8300,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -158, y: -25}
+  m_AnchoredPosition: {x: -158, y: -26.2}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1953809429
