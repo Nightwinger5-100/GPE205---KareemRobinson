@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6499573301304140577}
   - component: {fileID: 238094872774714480}
   - component: {fileID: 4079738574720555271}
-  - component: {fileID: 6022034230818724531}
+  - component: {fileID: 7921068232524585280}
   m_Layer: 0
   m_Name: gambleHealthPickup
   m_TagString: Untagged
@@ -122,9 +122,11 @@ MonoBehaviour:
   powerup:
     isPermanent: 0
     duration: 5
+    powerUpAudioSource: {fileID: 5994939913246311812, guid: 07bce7e6832753845bf27cc79d6e58ae, type: 3}
+    powerUpSound: {fileID: 8300000, guid: f3ca05c81104fb04aab349ad6793b10b, type: 3}
     healthToGamble: 200
     gambleMultiplier: 1.5
---- !u!114 &6022034230818724531
+--- !u!114 &7921068232524585280
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,7 +135,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8997981288467395709}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bae3dcf85ff3c284292552cf2c182301, type: 3}
+  m_Script: {fileID: 11500000, guid: df7eef41ef4823f4aac25ed98493a8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thePickUp: []

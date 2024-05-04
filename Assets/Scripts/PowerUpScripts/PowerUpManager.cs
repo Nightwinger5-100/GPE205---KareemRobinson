@@ -35,6 +35,7 @@ public class PowerUpManager : MonoBehaviour
     {
         //add the power up and if the effect is temporary add it to the array
         powerupToAdd.Apply(this);
+
         if (!powerupToAdd.isPermanent)
         {
             powerups.Add(powerupToAdd);

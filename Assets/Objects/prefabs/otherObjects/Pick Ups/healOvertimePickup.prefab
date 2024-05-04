@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4883892836045475203}
   - component: {fileID: 3889378214634957690}
   - component: {fileID: 6619358580240522659}
-  - component: {fileID: -1291122716858472086}
+  - component: {fileID: 3948788410262671168}
   m_Layer: 0
   m_Name: healOvertimePickup
   m_TagString: Untagged
@@ -122,10 +122,12 @@ MonoBehaviour:
   powerup:
     isPermanent: 0
     duration: 10
+    powerUpAudioSource: {fileID: 5994939913246311812, guid: 07bce7e6832753845bf27cc79d6e58ae, type: 3}
+    powerUpSound: {fileID: 8300000, guid: f3ca05c81104fb04aab349ad6793b10b, type: 3}
     healSpeed: 2
     healthToAdd: 5
     healthToRemove: 0
---- !u!114 &-1291122716858472086
+--- !u!114 &3948788410262671168
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,7 +136,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2673659691345143468}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bae3dcf85ff3c284292552cf2c182301, type: 3}
+  m_Script: {fileID: 11500000, guid: df7eef41ef4823f4aac25ed98493a8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thePickUp: []

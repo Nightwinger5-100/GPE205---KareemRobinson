@@ -18,6 +18,15 @@ public class RemoveHealthPickup : MonoBehaviour
         
     }
 
+    public void destroyPickupSound()
+    {
+        AudioSource audio = ((GameObject) Instantiate (powerup.powerUpAudioSource, transform.position, Quaternion.identity)).GetComponent<AudioSource>();
+
+        audio.clip = powerup.powerUpSound;
+
+        audio.Play();
+    }
+
     //on colliding with the parent
     public void OnTriggerEnter(Collider other)
     {
@@ -27,6 +36,7 @@ public class RemoveHealthPickup : MonoBehaviour
         //check if the component exists then...
         if (powerUpManager != null)
         {
+            destroyPickupSound();
             //remove said power up and destroy itself
             powerUpManager.Remove(powerup);
         

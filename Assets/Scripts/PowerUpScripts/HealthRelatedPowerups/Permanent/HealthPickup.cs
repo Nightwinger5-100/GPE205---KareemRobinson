@@ -6,6 +6,8 @@ public class HealthPickup : MonoBehaviour
 {
     public HealthPowerup powerup;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +20,15 @@ public class HealthPickup : MonoBehaviour
         
     }
 
+    public void destroyPickupSound()
+    {
+        AudioSource audio = ((GameObject) Instantiate (powerup.powerUpAudioSource, transform.position, Quaternion.identity)).GetComponent<AudioSource>();
+
+        audio.clip = powerup.powerUpSound;
+
+        audio.Play();
+    }
+
         public void OnTriggerEnter(Collider other)
     {
         //grab the powerUpManager components from the target
@@ -26,6 +37,7 @@ public class HealthPickup : MonoBehaviour
         //check if the component exists then...
         if (powerUpManager != null)
         {
+            destroyPickupSound();
             //apply said power up and destroy itself
             powerUpManager.Add(powerup);
         

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7163123649814508830}
   - component: {fileID: 1843749328424079814}
   - component: {fileID: 8710759624816346109}
-  - component: {fileID: 2952677393565513835}
+  - component: {fileID: 50513068576420177}
   m_Layer: 0
   m_Name: instantDamagePickup
   m_TagString: Untagged
@@ -122,9 +122,11 @@ MonoBehaviour:
   powerup:
     isPermanent: 1
     duration: 0
+    powerUpAudioSource: {fileID: 5994939913246311812, guid: 07bce7e6832753845bf27cc79d6e58ae, type: 3}
+    powerUpSound: {fileID: 8300000, guid: f3ca05c81104fb04aab349ad6793b10b, type: 3}
     healthToAdd: 0
     healthToRemove: 10
---- !u!114 &2952677393565513835
+--- !u!114 &50513068576420177
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,7 +135,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3275033586049575154}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bae3dcf85ff3c284292552cf2c182301, type: 3}
+  m_Script: {fileID: 11500000, guid: df7eef41ef4823f4aac25ed98493a8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thePickUp: []

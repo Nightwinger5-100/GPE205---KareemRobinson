@@ -12,6 +12,9 @@ public abstract class Powerup
 
     //the duration before a powerup is removed
     public float duration;
+    public GameObject powerUpAudioSource;
+
+    public AudioClip powerUpSound;
     
     //applying the powerup 
     public abstract void Apply(PowerUpManager target);

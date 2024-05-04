@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4025556716199994513}
   - component: {fileID: 2948823781969967005}
   - component: {fileID: 8590744946906397209}
-  - component: {fileID: 9118544768883404637}
   - component: {fileID: 6056698662636384120}
+  - component: {fileID: 6605320052129838509}
   m_Layer: 0
   m_Name: scorePickup
   m_TagString: Untagged
@@ -107,18 +107,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9118544768883404637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7062994941973216208}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bae3dcf85ff3c284292552cf2c182301, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6056698662636384120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,5 +117,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 359694e439efd7d4abfeeb6db70686cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerup:
+    isPermanent: 1
+    duration: 5
+    powerUpAudioSource: {fileID: 5994939913246311812, guid: 07bce7e6832753845bf27cc79d6e58ae, type: 3}
+    powerUpSound: {fileID: 8300000, guid: f3ca05c81104fb04aab349ad6793b10b, type: 3}
+    scoreToAdd: 150
+    scoreToRemove: 0
+--- !u!114 &6605320052129838509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7062994941973216208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7eef41ef4823f4aac25ed98493a8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

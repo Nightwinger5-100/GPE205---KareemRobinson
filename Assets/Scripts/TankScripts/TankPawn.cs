@@ -7,7 +7,9 @@ public class TankPawn : Pawn
     //variables
     //the next time the tank can shoot
     private float nextTimeCanShoot;
-    
+    public GameObject tankAudioSource;
+
+    public AudioClip deathSfx;
 
     // Start is called before the first frame update
     public override void Start()
@@ -110,6 +112,15 @@ public class TankPawn : Pawn
 
         //rotate the object over time based on however fast their turnSpeed is, toward the target rotation
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+    }
+
+    public void deathSound()
+    {
+        AudioSource audio = ((GameObject) Instantiate (tankAudioSource, transform.position, Quaternion.identity)).GetComponent<AudioSource>();
+
+        audio.clip = deathSfx;
+
+        audio.Play();
     }
 
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class GambleHealthPowerup : Powerup
 {
-    public float healthToGamble;
+    float healthToGamble;
     public float gambleMultiplier;
 
     //takes away health from the player based on however much is being gambled
@@ -14,7 +15,8 @@ public class GambleHealthPowerup : Powerup
         // grab the health and pawn components from the target
         Health health = target.GetComponent<Health>();
         Pawn pawn = target.GetComponent<Pawn>();
-        
+        healthToGamble = UnityEngine.Random.Range(1, health.maxHealth);
+
         //if the gambled amount would kill the pawn then just gamble them to 1 hp
         if (healthToGamble >= health.currentHealth)
         {

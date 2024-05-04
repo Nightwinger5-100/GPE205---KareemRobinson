@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
@@ -23,6 +25,8 @@ public class Health : MonoBehaviour
     private float speed;
 
     private Pawn pawn;
+
+    public Image healthUi;
 
     public void Start()
     {
@@ -47,6 +51,10 @@ public class Health : MonoBehaviour
         {
             Die(source);
         }
+        else
+        {
+            updateHealthUi();
+        }
     }
 
     //get the pawn and increase their hp by the amount
@@ -56,7 +64,7 @@ public class Health : MonoBehaviour
         if (maxHealth < (currentHealth + amount))
         {
             //Clamp could be done here but I feel this is simpler for getting the accurate healed amount
-            amount = maxHealth - currentHealth + amount;
+            amount = maxHealth - currentHealth;
         }
         //if they aren't gonna gain any hp then there's nothing more to do
         if(currentHealth == maxHealth || currentHealth > maxHealth)
@@ -67,6 +75,7 @@ public class Health : MonoBehaviour
         }
         //add the amount to health and print it
         currentHealth = currentHealth + amount;
+        updateHealthUi();
         //Debug.Log(source.name + " healed " + amount + " to " + gameObject.name);
     }
 
@@ -89,6 +98,11 @@ public class Health : MonoBehaviour
         }
         
         Heal(amount, source);
+    }
+
+    public void updateHealthUi()
+    {
+        healthUi.fillAmount = Mathf.InverseLerp(0, maxHealth, currentHealth);
     }
 
     public void Update()
@@ -118,14 +132,16 @@ public class Health : MonoBehaviour
     //check if their dead because their hp is less than 0
     public void Die(Pawn objectThatDidDmg)
     {
-        checkIfGameObjectIsPlayer();
+        //play death sound effect on the pawn
+        GetComponent<TankPawn>().deathSound();
+        checkIfGameObjectIsPlayer(gameObject);
         checkIfPawnIsAPlayer(objectThatDidDmg);
         checkifAi(gameObject);
         Destroy(gameObject);
 
     }
 
-    private void checkIfGameObjectIsPlayer()
+    private void checkIfGameObjectIsPlayer(GameObject player)
     {
         List<PlayerController> playerList =  GameManager.instance.players;
         for (int playerlistNum = 0; playerlistNum < playerList.Count; playerlistNum++)
@@ -133,7 +149,6 @@ public class Health : MonoBehaviour
             if (gameObject == playerList[playerlistNum].pawn.gameObject)
             {
                 GameManager.instance.RespawnPlayer(playerList[playerlistNum]);
-                
             }
         }
     }

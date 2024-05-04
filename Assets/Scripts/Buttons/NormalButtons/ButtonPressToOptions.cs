@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ButtonPressToOptions : MonoBehaviour
 {
+    public AudioSource sfxAudioSource;
+    public AudioClip buttonSound;
+
     public void ChangeToOptions ()
     {
-        if (GameManager.instance != null) {
-            GameManager.instance.ActivateOptions();
-        }
+        sfxAudioSource.PlayOneShot(buttonSound);
+        GameManager.instance.ActivateOptions();
     }
 }

@@ -6,8 +6,6 @@ public class DamageOnHit : MonoBehaviour
 {
     public float damageDone;
     public Pawn owner;
-    public AudioSource audioSource;
-    public AudioClip dohSound;
 
     public void OnTriggerEnter(Collider other)
     {

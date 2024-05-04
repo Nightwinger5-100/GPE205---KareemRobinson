@@ -3,7 +3,13 @@ guid: 9a9bdf6a93e2e2f4d8c6d7143c631d18
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - mover: {instanceID: 0}
+  - shooter: {instanceID: 0}
+  - bulletPrefab: {instanceID: 0}
+  - pawnController: {instanceID: 0}
+  - tankAudioSource: {instanceID: 0}
+  - deathSfx: {fileID: 8300000, guid: fdda9bc97aeadc94b81eae18f2820f1e, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
