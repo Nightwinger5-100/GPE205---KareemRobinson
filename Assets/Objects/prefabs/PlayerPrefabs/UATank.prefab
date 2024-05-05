@@ -297,7 +297,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Score: 0
 
-    Lives: 3'
+    Lives: 3
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -395,7 +397,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6311666775436307031}
   m_LocalRotation: {x: -0.12151785, y: -0, z: -0, w: 0.9925893}
-  m_LocalPosition: {x: 0, y: 0, z: 256.11343}
+  m_LocalPosition: {x: 0, y: 0, z: 238}
   m_LocalScale: {x: 2.9624574, y: 0.6015111, z: 80.71357}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -403,7 +405,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.0357056, y: -20.656206}
+  m_AnchoredPosition: {x: 4.0357056, y: 53}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5589497904101109709
@@ -575,7 +577,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8394399366784220730}
   m_LocalRotation: {x: -0.12151785, y: -0, z: -0, w: 0.9925893}
-  m_LocalPosition: {x: 0, y: 0, z: 256.11343}
+  m_LocalPosition: {x: 0, y: 0, z: 238}
   m_LocalScale: {x: 2.9624574, y: 0.6015111, z: 80.71357}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -583,7 +585,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.0357056, y: -20.656206}
+  m_AnchoredPosition: {x: 4.0357056, y: 53.000023}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8721476523729540997
@@ -895,7 +897,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 7446147290965452832, guid: 7d82d313ff8b71142a1f90d53f99f75b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 3b567982ee6ede34fbc43e1f34f53a5a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.499
+  m_Volume: 0.121
   m_Pitch: 1
   Loop: 0
   Mute: 0

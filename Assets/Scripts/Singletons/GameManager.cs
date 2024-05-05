@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     public GameObject CreditsScreenStateObject;
     public GameObject GameplayStateObject;
     public GameObject GameOverScreenStateObject;
+    public GameObject winScreenStateObject;
 
     //player list
     public List<PlayerController> players;
@@ -63,9 +64,11 @@ public class GameManager : MonoBehaviour
     //pickup list
     public List<Spawner> storedPickUpSpawns;
 
-    List<PawnSpawnPoint> storedPawnSpawns = new List<PawnSpawnPoint>();
+    public List<PawnSpawnPoint> storedPawnSpawns = new List<PawnSpawnPoint>();
 
-    List<PlayerSpawnPoint> storedPlayerSpawns = new List<PlayerSpawnPoint>();
+    public List<PlayerSpawnPoint> storedPlayerSpawns = new List<PlayerSpawnPoint>();
+
+    public List<Pawn> storedPawns = new List<Pawn>();
 
     private int playerSpawn = 0;
 
@@ -79,6 +82,14 @@ public class GameManager : MonoBehaviour
     //hotkeys for debugging
     public KeyCode titleKey;
 
+    //The time the game will go on for
+    public float lengthOfGame = 30;
+
+    //The time when the game will end
+    private float endTime;
+
+    private bool timerActive;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -89,6 +100,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        timer();
         getInputs();
     }
 
@@ -113,6 +125,8 @@ public class GameManager : MonoBehaviour
 
         //Connect the pawn to the controller
         newController.pawn = newPawn;
+
+        storedPawns.Add(newPawn);
          //update their ui
         newPlayerController.updateCanvas();
 
@@ -139,48 +153,10 @@ public class GameManager : MonoBehaviour
 
         //Connect the pawn to the controller
         newController.pawn = newPawn;
+        storedPawns.Add(newPawn);
          //update their ui
         newPlayerController.updateCanvas();
 
-    }
-
-    //Updates lives and respawns the player is applicable
-    public bool checkIfGameOver(PlayerController playerController)
-    {
-        //if this player still has lives then the game continues
-        if (playerController.Lives > 0)
-        {
-            //just remove a life
-            playerController.Lives -= 1;
-            return false;
-        }
-
-        //if that player has ran out of lives...
-        else
-        {
-            //find the player in the playerlist
-            for (int playerlistNum = 0; playerlistNum < players.Count; playerlistNum++)
-            {
-                if (playerController == players[playerlistNum])
-                {
-                    //remove that player from the list of players
-                    Destroy(playerController.gameObject);
-                    players.Remove(players[playerlistNum]);
-                    
-                }
-            }
-
-            //if the player list is now empty...
-            if (players.Count < 1)
-            {
-                Debug.Log("gg");
-                //the game is over
-                ActivateGameOver();
-            }
-            //it's gameover for that player
-            return true;
-        }
-        
     }
 
     //Respawns the player if they have lives
@@ -250,6 +226,7 @@ public class GameManager : MonoBehaviour
 
         //Connect
         newController.pawn = newPawn;
+        storedPawns.Add(newPawn);
     }
 
     public void SpawnGuarderAi(GameObject spawnPoint)
@@ -277,6 +254,7 @@ public class GameManager : MonoBehaviour
 
         //Connect
         newController.pawn = newPawn;
+        storedPawns.Add(newPawn);
     }
 
     public void SpawnPatrollerAi(GameObject spawnPoint)
@@ -304,6 +282,7 @@ public class GameManager : MonoBehaviour
 
         //Connect
         newController.pawn = newPawn;
+        storedPawns.Add(newPawn);
     }
 
     public void SpawnRunnerAi(GameObject spawnPoint)
@@ -331,8 +310,74 @@ public class GameManager : MonoBehaviour
 
         //Connect
         newController.pawn = newPawn;
+        storedPawns.Add(newPawn);
     }
     
+    //Updates lives and respawns the player is applicable
+    public bool checkIfGameOver(PlayerController playerController)
+    {
+        if (!timerActive)
+        {
+            for (int playerlistNum = 0; playerlistNum < players.Count; playerlistNum++)
+            {
+            //remove that player from the list of players
+            Destroy(playerController.gameObject);
+            players.Remove(players[playerlistNum]);
+            ActivateGameOver();
+            }
+            return true;
+        }
+        //if this player still has lives then the game continues
+        else if (playerController.Lives > 0)
+        {
+            //just remove a life
+            playerController.Lives -= 1;
+            return false;
+        }
+
+        //if that player has ran out of lives...
+        else
+        {
+            //find the player in the playerlist
+            for (int playerlistNum = 0; playerlistNum < players.Count; playerlistNum++)
+            {
+                if (playerController == players[playerlistNum])
+                {
+                    //remove that player from the list of players
+                    Destroy(playerController.gameObject);
+                    players.Remove(players[playerlistNum]);
+                    
+                }
+            }
+
+            //if the player list is now empty...
+            if (players.Count < 1)
+            {
+                Debug.Log("gg");
+                //the game is over
+                ActivateGameOver();
+            }
+            //it's gameover for that player
+            return true;
+        }
+        
+    }
+
+    public void timer()
+    {
+        if (GameplayStateObject.activeSelf && timerActive)
+        {
+        Debug.Log(endTime - Mathf.Round(Time.time));
+        }
+        if(GameplayStateObject.activeSelf && endTime < Time.time && timerActive)
+        {
+            timerActive = false;
+            checkIfGameOver(players[0]);
+        }
+        
+    }
+
+
     // As soon as this is created before even start()
     private void Awake()
     {
@@ -463,6 +508,8 @@ public class GameManager : MonoBehaviour
         DeactivateAllStates();
         // Activate the gameplay screen
         GameplayStateObject.SetActive(true);
+        endTime = Mathf.Round(Time.time) + lengthOfGame;
+        timerActive = true;
         FindObjectOfType<MapGenerator>().createMapWithPlayerFromSeed();
     }
 
@@ -489,6 +536,15 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void ActivateWin()
+    {
+        // Deactivate all states
+        DeactivateAllStates();
+        
+        // Activate the gameover screen
+        winScreenStateObject.SetActive(true);
+    }
+
     //Disables all the screeens
     private void DeactivateAllStates()
     {
@@ -507,8 +563,18 @@ public class GameManager : MonoBehaviour
         removeAllPickups();
         removeAllRooms();
         removeAllPlayerControllers();
+        removeAllTankPawns();
     }
     
+    private void removeAllTankPawns()
+    {
+        for (int curTankPawn = 0; curTankPawn < storedPawns.Count; curTankPawn++)
+        {
+            Destroy(storedPawns[curTankPawn].gameObject);
+        }
+        storedPawns.Clear();
+    }
+
     private void removeAllAi()
     {
         //destroy each ai pawn and controller
@@ -516,7 +582,7 @@ public class GameManager : MonoBehaviour
         {
             if (ai[aiNum].pawn.gameObject != null)
             {
-                Destroy(ai[aiNum].pawn.gameObject);
+              //  Destroy(ai[aiNum].pawn.gameObject);
             }
             
             Destroy(ai[aiNum].gameObject);
