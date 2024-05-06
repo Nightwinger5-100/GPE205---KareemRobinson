@@ -669,6 +669,7 @@ public class GameManager : MonoBehaviour
         {
             Camera[] camList = FindObjectsOfType<Camera>();
             Debug.Log(camList.Length);
+            
             for (int camNum = 0;  camNum < camList.Length; camNum++)
             {
                 for(int playerNum = 0;  playerNum < players.Count; playerNum++)
