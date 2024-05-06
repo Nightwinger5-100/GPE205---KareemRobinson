@@ -103,6 +103,12 @@ public class PlayerController : Controller
         playerCanvasText.text = playerCanvasText.text.Replace("\\n", "\n");
     }
 
+    public void updateTimerUi()
+    {
+        TextMeshPro playerCanvasText = pawn.transform.Find("Canvas").GetComponent<TextMeshPro>();
+        playerCanvasText.text = "Score: " + score + "\n" + "Lives: " + Lives + "\n" + "Time: " + GameManager.instance.currentTime;
+    }
+
     public void removeFromScore(float scoreAmount)
     {
         score -= scoreAmount;

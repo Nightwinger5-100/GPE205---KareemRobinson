@@ -137,8 +137,20 @@ public class Health : MonoBehaviour
         checkIfGameObjectIsPlayer(gameObject);
         checkIfPawnIsAPlayer(objectThatDidDmg);
         checkifAi(gameObject);
+        removeFromPawnList();
         Destroy(gameObject);
 
+    }
+
+    private void removeFromPawnList()
+    {
+        for (int playerlistNum = 0; playerlistNum < GameManager.instance.storedPawns.Count; playerlistNum++)
+        {
+            if (gameObject == GameManager.instance.storedPawns[playerlistNum].gameObject)
+            {
+                GameManager.instance.storedPawns.Remove(GameManager.instance.storedPawns[playerlistNum]);
+            }
+        }
     }
 
     private void checkIfGameObjectIsPlayer(GameObject player)

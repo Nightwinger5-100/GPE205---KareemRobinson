@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -88,7 +89,11 @@ public class GameManager : MonoBehaviour
     //The time when the game will end
     private float endTime;
 
+    public float currentTime;
+
     private bool timerActive;
+
+    public TextMeshPro winScreenText;
 
     // Start is called before the first frame update
     private void Start()
@@ -316,15 +321,10 @@ public class GameManager : MonoBehaviour
     //Updates lives and respawns the player is applicable
     public bool checkIfGameOver(PlayerController playerController)
     {
-        if (!timerActive)
+        if (!timerActive && GameplayStateObject.activeSelf)
         {
-            for (int playerlistNum = 0; playerlistNum < players.Count; playerlistNum++)
-            {
-            //remove that player from the list of players
-            Destroy(playerController.gameObject);
-            players.Remove(players[playerlistNum]);
-            ActivateGameOver();
-            }
+
+            ActivateWin();
             return true;
         }
         //if this player still has lives then the game continues
@@ -363,11 +363,19 @@ public class GameManager : MonoBehaviour
         
     }
 
+    //compare the current time to the end time and see if the game is over
     public void timer()
     {
         if (GameplayStateObject.activeSelf && timerActive)
         {
-        Debug.Log(endTime - Mathf.Round(Time.time));
+
+        currentTime = endTime - Mathf.Round(Time.time);
+
+        for (int curPlayer = 0; curPlayer < players.Count; curPlayer++)
+        {
+            players[curPlayer].updateTimerUi();
+        }
+
         }
         if(GameplayStateObject.activeSelf && endTime < Time.time && timerActive)
         {
@@ -376,7 +384,6 @@ public class GameManager : MonoBehaviour
         }
         
     }
-
 
     // As soon as this is created before even start()
     private void Awake()
@@ -541,6 +548,23 @@ public class GameManager : MonoBehaviour
         // Deactivate all states
         DeactivateAllStates();
         
+        bgMusic.Stop();
+
+        //print all the score
+        PlayerController highestScore = players[0];
+        for (int plr = players.Count-1 ; plr >= 0; plr--)
+        {
+            if (players[plr].score > highestScore.score)
+            {
+                highestScore = players[plr];
+            }
+        }
+
+        Debug.Log("The highest score is " + highestScore.score + " from the player using controller: "  +  highestScore);
+
+        //Delete all the gameObjects
+        clearTheGame();
+
         // Activate the gameover screen
         winScreenStateObject.SetActive(true);
     }
@@ -555,8 +579,10 @@ public class GameManager : MonoBehaviour
         CreditsScreenStateObject.SetActive(false);
         GameplayStateObject.SetActive(false);
         GameOverScreenStateObject.SetActive(false);
+        winScreenStateObject.SetActive(false);
     }
 
+    //runs all the remove functions
     private void clearTheGame()
     {
         removeAllAi();
@@ -566,6 +592,7 @@ public class GameManager : MonoBehaviour
         removeAllTankPawns();
     }
     
+    //deletes all tank objects
     private void removeAllTankPawns()
     {
         for (int curTankPawn = 0; curTankPawn < storedPawns.Count; curTankPawn++)
@@ -575,6 +602,7 @@ public class GameManager : MonoBehaviour
         storedPawns.Clear();
     }
 
+    //deletes all ai controllers
     private void removeAllAi()
     {
         //destroy each ai pawn and controller
@@ -597,7 +625,8 @@ public class GameManager : MonoBehaviour
         storedPawnSpawns.Clear();
         ai.Clear();
     }
-    
+
+    //deletes all pickups    
     private void removeAllPickups()
     {
         //get a list of all the pickups
@@ -611,6 +640,7 @@ public class GameManager : MonoBehaviour
         storedPickUpSpawns.Clear();
     }
 
+    //deletes all rooms
     private void removeAllRooms()
     {
         List<Room> theRooms = FindObjectOfType<Level>().allRooms;
@@ -620,7 +650,8 @@ public class GameManager : MonoBehaviour
         }
         FindObjectOfType<Level>().clearRoomList();
     }
-
+    
+    //deletes all player controllers
     private void removeAllPlayerControllers()
     {   
         //Destroy every player controller and clear the list
@@ -630,10 +661,10 @@ public class GameManager : MonoBehaviour
         }
         players.Clear();
     }
-
+    
+    //manipulates cameras for multiplayer mode
     public void multiPlayerMode()
     {
-        
         if (muliplayer)
         {
             Camera[] camList = FindObjectsOfType<Camera>();
